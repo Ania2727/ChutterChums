@@ -16,7 +16,12 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from forums.views import *
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', home, name='home'),
+    path('addForum/', add_forum, name='addForum'),
+    path('addChat/', add_chat, name='addChat'),
+    path('<str:forum_name>/', forum, name='forum'),
 ]
