@@ -1,0 +1,308 @@
+
+body {
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    text-align: center;
+    
+    justify-content: center;
+    
+}
+
+a {
+    text-decoration: none;
+}
+
+/*navbar*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+}
+
+.navbar .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: #ff914d;
+    color: #E4500E;
+}
+
+/* profile Icon and dropdown */
+.profile-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 150px;
+}
+
+.profile-dropdown .dropdown-menu.show {
+    display: block;
+}
+
+.profile-dropdown .dropdown-menu a {
+    display: block;
+    padding: 8px;
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-dropdown .dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+
+
+/*home page body*/
+.hero-section {
+    padding: 100px 20px;
+}
+
+.hero-section h1 {
+    font-size: 48px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+.hero-section p {
+    font-size: 18px;
+    color: #555;
+    margin-bottom: 40px;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+}
+
+.btn {
+    padding: 12px 24px;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.btn-signup {
+    background-color: #ff914d;
+    color: #E4500E
+}
+
+.btn-login {
+    background-color: #d3d3d3;
+    color: #333;
+}
+
+.btn-signup:hover {
+    background-color: #ff7b2c;
+}
+
+.btn-login:hover {
+    background-color: #c0c0c0;
+}
+
+
+
+/* Profile Icon and Dropdown */
+.profile-dropdown {
+    position: relative;
+    display: inline-block;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+/*login and sign up title */
+
+
+
+
+/* Logo styling */
+.logo img {
+    width: 60px;
+    margin-bottom: 12px;
+}
+
+/* Title & Subtitle */
+.form-title {
+    font-size: 20px;
+    font-weight: 600;
+    color: #111;
+    margin-bottom: 5px;
+}
+
+.form-subtitle {
+    font-size: 14px;
+    color: #555;
+    margin-bottom: 20px;
+}
+
+/* Form input styling */
+.signup-form input[type="email"],
+.signup-form input[type="text"],
+.signup-form input[type="password"] {
+    display: block;
+    width: 20%;
+    padding: 12px;
+    margin: 0 auto 10px auto;
+    margin-bottom: 10px;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f8f8f8;
+    outline: none;
+    color: #111;
+}
+
+
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    display: block;
+    width: 20%;
+    padding: 12px;
+    margin-bottom: 10px;
+    margin: 0 auto 10px auto;
+    border: 1px solid #ddd;
+    border-radius: 6px;
+    box-sizing: border-box;
+    font-size: 14px;
+    background-color: #f8f8f8;
+    outline: none;
+    color: #111;
+}
+
+.big-logo img{
+    width: 15%;
+    padding-left:40%;
+    padding: 0px 20px;
+}
+
+.big-logo h1{
+    font-size: 48px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+/* Primary Button */
+.submit {
+    background-color: #111;
+    color: #fff;
+    border: none;
+    padding: 12px;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 20%;
+    font-size: 16px;
+    font-weight: 500;
+    transition: background-color 0.3s ease;
+}
+
+
+/* Separator */
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    color: #999;
+}
+
+.separator span {
+    font-size: 14px;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #ddd;
+    margin: 0 10px;
+}
+
+/*Login to existing account button */
+.btn-secondary {
+    display: block;
+    background-color: #eee;
+    color: #111;
+    padding: 12px;
+    border: none;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s ease;
+    border-radius: 6px;
+    cursor: pointer;
+    width: 20%;
+    font-size: 14px;
+    font-weight: 500;
+    margin-left: 40%;
+   
+}
+
+.btn-secondary:hover {
+    background-color: #ddd;
+}
+
+
+
+
+
+
+
+

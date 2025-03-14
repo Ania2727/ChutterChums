@@ -3,7 +3,7 @@ from django.http import Http404
 from forums.forms import *
 
 # Create your views here.
-def home(request):
+def userForums(request):
     forums=Forum.objects.all()
     count=forums.count()
     discussions=[]
@@ -14,7 +14,7 @@ def home(request):
               'count':count,
               'discussions':discussions
     }
-    return render(request,'home.html', context)
+    return render(request,'userForums.html', context)
 
 
 def forum(request, forum_name):
@@ -60,4 +60,8 @@ def add_chat(request):
             return redirect('/')
     context ={'form':form}
     return render(request, 'addChat.html', context)
+
+
+def home(request):
+    return render(request, 'home.html')
 
