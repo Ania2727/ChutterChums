@@ -1,0 +1,71 @@
+<!--header and navbar for all pages-->
+<!DOCTYPE html>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>{% block title %}ChatterChums{% endblock %}</title>
+    <link rel="stylesheet" href="{% static 'css/styles.css' %}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+</head>
+<body>
+
+<!--navbar-->
+<div class="navbar">
+    <div class="logo">
+        <img src="{% static 'images/logo.png' %}" alt="Logo" />
+        <span>ChatterChums</span>
+    </div>
+    
+    <div class="nav-links">
+        <a href="#" >Home</a>
+        <a href="{%url 'users:signup' %}">Sign Up</a>
+        <a href="{% url 'users:login' %}">Login</a>
+        <a href="#">About</a>
+        <a href="#">Explore</a>
+        <a href="{%url 'userForums' %}">Forums</a>
+        <a href="#">Settings</a>
+
+        <!-- profile icon dropdown -->
+        <div class="profile-dropdown">
+            <img src="{% static 'images/blank-icon.jpeg' %}" alt="Profile" class="profile-icon">
+            <div class="dropdown-menu">
+                <a href="{% url 'users:profile' %}">Profile</a>
+                <a href="{% url 'users:logout' %}">Logout</a>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- main Content -->
+<div>
+    {% block content %}
+    {% endblock %}
+</div>
+
+<script>
+    // Dropdown toggle logic
+    document.addEventListener('DOMContentLoaded', () => {
+    const profileIcon = document.querySelector('.profile-icon');
+    const dropdownMenu = document.querySelector('.dropdown-menu');
+
+    profileIcon.addEventListener('click', (e) => {
+        e.stopPropagation();
+        dropdownMenu.classList.toggle('show');
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!profileIcon.contains(e.target) && !dropdownMenu.contains(e.target)) {
+            dropdownMenu.classList.remove('show');
+        }
+    });
+});
+
+</script>
+
+</body>
+</html>

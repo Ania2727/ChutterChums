@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ChatterChums Forum</title>
+    <style>
+        .box {
+            border: 4px solid black;
+            margin: 0 auto;
+        }
+    </style>
+</head>
+<body>
+<div>
+    <h2 class="jumbotron">
+        Currently active forums: {{ count }}
+        <form method="POST" action="{% url 'addForum' %}">
+            {% csrf_token %}
+            <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Add more</button>
+        </form>
+    </h2>
+    <div class="card-columns" style="padding: 10px; margin: 20px;">
+        {% for forum in forums %}
+            <div class="card box container">
+                <br>
+                <h5 class="card-title">
+                    {% if forum.link %}
+                        <a href='{{ forum.link }}'><h3>{{ forum.title }}</h3></a>
+                    {% else %}
+                        <a href='{% url "forum" forum.title %}'><h3>{{ forum.title }}</h3></a>
+                    {% endif %}
+                </h5>
+                <div class="card-body container">
+                    <p>{{ forum.description }}</p>
+                    <hr>
+                    <p> By: {{ forum.name }}</p>
+                    <hr>
+                    <h4>Views from other users</h4>
+                    {% for discuss in discussions %}
+                        {% for objs in discuss %}
+                            {% if objs.forum == forum %}
+                                {{ objs.discuss }}
+                                <br>
+                            {% endif %}
+                        {% endfor %}
+                    {% endfor %}
+                    <form method="POST" action="{% url 'addChat' %}">
+                        {% csrf_token %}
+                        <button class="btn btn-success" style="width:fit-content; padding: 4px; margin:10px;">Add more
+                        </button>
+                    </form>
+                </div>
+            </div>
+            <br>
+        {% endfor %}
+    </div>
+</div>
+</body>
+</html>
