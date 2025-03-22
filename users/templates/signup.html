@@ -23,8 +23,9 @@
     
 <!-- main Content -->
 <div>
-    <h2 class="form-title"></h2>Create an account</h2>
+    <h2 class="form-title">Create an account</h2>
     <p class="form-subtitle">Enter your email to sign up for this app</p>
+
     <form method="post" class="signup-form">
         {% csrf_token %}
         {{ form.email }}

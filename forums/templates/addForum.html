@@ -1,23 +1,68 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Forum</title>
-    <style>
-        form {
-            border: 4px solid black;
-            margin: 0 auto;
-            padding: 40px;
-            width: fit-content;
-        }
-    </style>
-</head>
-<body>
-    <form action="{% url 'addForum' %}" method="POST">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Create Forum - ChatterChums{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    <h1 class="form-title">Create New Forum</h1>
+    
+    <form method="post" class="create-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-success" value="submit">
+        
+        <div class="form-field">
+            <label for="{{ form.title.id_for_label }}">Title</label>
+            {{ form.title }}
+            {% if form.title.errors %}
+                <div class="field-error">
+                    {% for error in form.title.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-field">
+            <label for="{{ form.description.id_for_label }}">Description</label>
+            {{ form.description }}
+            {% if form.description.errors %}
+                <div class="field-error">
+                    {% for error in form.description.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-field">
+            <label for="{{ form.name.id_for_label }}">Display Name</label>
+            {{ form.name }}
+            {% if form.name.errors %}
+                <div class="field-error">
+                    {% for error in form.name.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <div class="form-field">
+            <label for="{{ form.link.id_for_label }}">External Link (Optional)</label>
+            {{ form.link }}
+            {% if form.link.errors %}
+                <div class="field-error">
+                    {% for error in form.link.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button class="submit" type="submit">Create Forum</button>
     </form>
-</body>
-</html>
+    
+    <div class="back-link">
+        <a href="{% url 'forums:user_forums' %}">Back to forums</a>
+    </div>
+</div>
+{% endblock %}
