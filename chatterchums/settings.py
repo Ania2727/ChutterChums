@@ -127,3 +127,19 @@ STATIC_URL = '/static/'
 # https://docs.djangoproject.com/en/5.1/ref/settings/#default-auto-field
 
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
+
+# Login URL (for login_required decorator)
+LOGIN_URL = 'users:login'
+
+# Default redirect after login if 'next' parameter is not provided
+LOGIN_REDIRECT_URL = 'users:profile'
+
+# Message framework settings
+from django.contrib.messages import constants as messages
+MESSAGE_TAGS = {
+    messages.DEBUG: 'debug',
+    messages.INFO: 'info',
+    messages.SUCCESS: 'success',
+    messages.WARNING: 'warning',
+    messages.ERROR: 'danger',
+}

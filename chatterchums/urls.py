@@ -16,6 +16,7 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
+from django.views.generic import RedirectView
 from forums.views import *
 
 urlpatterns = [
@@ -26,4 +27,5 @@ urlpatterns = [
     path('addChat/', add_chat, name='addChat'),
     path('<str:forum_name>/', forum, name='forum'),
     path('users/', include('users.urls', namespace='users')),
+    path('', RedirectView.as_view(pattern_name='users:login'), name='home'),
 ]

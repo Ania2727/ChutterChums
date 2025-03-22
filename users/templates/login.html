@@ -28,8 +28,8 @@
             <p class="form-subtitle">Enter your credentials to log in</p>
             <form method="post" class="login-form">
                 {% csrf_token %}
-                {{ form.username}}
-                {{ form.password1 }}
+                {{ form.username }}
+                {{ form.password }}
                 <button class="submit" type="submit">Login</button>
             </form>
             <div class="separator">
