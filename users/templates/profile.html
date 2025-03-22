@@ -2,13 +2,14 @@
 {% load static %}
 <html lang="en">
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8"/>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
     <title>ChatterChums</title>
     <link rel="stylesheet" href="{% static 'css/styles.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
     <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
 
     <!-- Please feel free to delete/edit this -->
@@ -54,25 +55,122 @@
             text-decoration: none;
             display: inline-block;
         }
+
+        .forum-section {
+            background-color: #fff;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+        }
+
+        .forum-section h3 {
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #333;
+        }
+
+        .forum-list {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 15px;
+        }
+
+        .forum-item {
+            background-color: #f9f9f9;
+            padding: 15px;
+            border-radius: 6px;
+        }
+
+        .forum-item h4 {
+            margin-bottom: 8px;
+            font-size: 16px;
+        }
+
+        .forum-item p {
+            color: #666;
+            font-size: 14px;
+            margin-bottom: 10px;
+        }
+
+        .forum-link {
+            color: #4a6fdc;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forum-link:hover {
+            text-decoration: underline;
+        }
+
+        .browse-forums {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+        .btn-primary {
+            background-color: #4a6fdc;
+            color: white;
+            padding: 10px 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            text-decoration: none;
+            display: inline-block;
+        }
     </style>
 </head>
 
 
 <body>
-    <div class="profile-container">
-        <div class="user-info">
-            <h2 class="welcome-message">Welcome, {{ user.username }}!</h2>
+<div class="profile-container">
+    <div class="user-info">
+        <h2 class="welcome-message">Welcome, {{ user.username }}!</h2>
 
-            <div class="user-details">
-                <p><strong>Username:</strong> {{ user.username }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
-            </div>
+        <div class="user-details">
+            <p><strong>Username:</strong> {{ user.username }}</p>
+            <p><strong>Email:</strong> {{ user.email }}</p>
+            <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+        </div>
 
-            <div class="actions">
-                <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
-            </div>
+        <div class="actions">
+            <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
         </div>
     </div>
+
+    {% if joined_forums %}
+        <div class="forum-section">
+            <h3>Forums You've Joined</h3>
+            <div class="forum-list">
+                {% for forum in joined_forums %}
+                    <div class="forum-item">
+                        <h4>{{ forum.title }}</h4>
+                        <p>{{ forum.description|truncatechars:75 }}</p>
+                        <a href="{% url 'forums:forum' forum.title %}" class="forum-link">View Forum</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if created_forums %}
+        <div class="forum-section">
+            <h3>Forums You've Created</h3>
+            <div class="forum-list">
+                {% for forum in created_forums %}
+                    <div class="forum-item">
+                        <h4>{{ forum.title }}</h4>
+                        <p>{{ forum.description|truncatechars:75 }}</p>
+                        <a href="{% url 'forums:forum' forum.title %}" class="forum-link">View Forum</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    <div class="browse-forums">
+        <a href="{% url 'forums:user_forums' %}" class="btn-primary">Browse All Forums</a>
+    </div>
+</div>
 </body>
 </html>

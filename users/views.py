@@ -4,10 +4,26 @@ from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
 from django.contrib import messages
+from forums.models import Forum
 
 @login_required
 def profile_view(request):
-    return render(request, 'profile.html')
+    # Get forums created by the user
+    created_forums = Forum.objects.filter(creator=request.user)
+
+    # Get forums the user has joined
+    joined_forums = Forum.objects.filter(members=request.user)
+
+    # Get user's recent chat messages
+    from forums.models import Chat
+    recent_chats = Chat.objects.filter(user=request.user).order_by('-created_at')[:5]
+
+    context = {
+        'created_forums': created_forums,
+        'joined_forums': joined_forums,
+        'recent_chats': recent_chats,
+    }
+    return render(request, 'profile.html', context)
 
 
 def logout_view(request):

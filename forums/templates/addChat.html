@@ -1,23 +1,56 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Add New Chat</title>
-    <style>
-        form {
-            border: 4px solid black;
-            margin: 0 auto;
-            padding: 40px;
-            width: fit-content;
-        }
-    </style>
-</head>
-<body>
-    <form action="{% url 'addChat' %}" method="POST">
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}New Discussion - ChatterChums{% endblock %}
+
+{% block content %}
+<div class="form-container">
+    {% if forum %}
+        <h1 class="form-title">New Discussion in {{ forum.title }}</h1>
+    {% else %}
+        <h1 class="form-title">New Discussion</h1>
+    {% endif %}
+    
+    <form method="post" class="create-form">
         {% csrf_token %}
-        {{ form.as_p }}
-        <input type="submit" class="btn btn-success" value="submit">
+        
+        {% if not forum %}
+        <div class="form-field">
+            <label for="{{ form.forum.id_for_label }}">Select Forum</label>
+            {{ form.forum }}
+            {% if form.forum.errors %}
+                <div class="field-error">
+                    {% for error in form.forum.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        {% else %}
+            {{ form.forum }}
+        {% endif %}
+        
+        <div class="form-field">
+            <label for="{{ form.discuss.id_for_label }}">Discussion</label>
+            {{ form.discuss }}
+            {% if form.discuss.errors %}
+                <div class="field-error">
+                    {% for error in form.discuss.errors %}
+                        <p class="error-message">{{ error }}</p>
+                    {% endfor %}
+                </div>
+            {% endif %}
+        </div>
+        
+        <button class="submit" type="submit">Post Discussion</button>
     </form>
-</body>
-</html>
+    
+    <div class="back-link">
+        {% if forum %}
+            <a href="{% url 'forums:forum' forum.title %}">Back to forum</a>
+        {% else %}
+            <a href="{% url 'forums:user_forums' %}">Back to forums</a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

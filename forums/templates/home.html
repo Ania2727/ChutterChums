@@ -1,20 +1,134 @@
-
 {% extends 'base.html' %}
+{% load static %}
 
-{% block title %}Home | ChatterChums{% endblock %}
-
+{% block title %}ChatterChums - Connect and Chat{% endblock %}
 
 {% block content %}
-
-
+<div class="home-container">
     <div class="hero-section">
-        <h1>ChatterChums</h1>
-        <p>Make your account to get chattering with new chums</p>
-        <div class="buttons">
-            <a href="{% url 'users:signup' %}"> <button class="btn btn-signup">Sign Up</button></a>
-            <a href="{% url 'users:login' %}"> <button class="btn btn-login">Login</button></a>
+        <div class="hero-content">
+            <h1>Welcome to ChatterChums</h1>
+            <p class="hero-subtitle">Join conversations, create communities, and connect with others</p>
+            
+            {% if user.is_authenticated %}
+                <div class="cta-buttons">
+                    <a href="{% url 'forums:user_forums' %}" class="btn-primary">Browse Forums</a>
+                    <a href="{% url 'forums:add_forum' %}" class="btn-secondary">Create Forum</a>
+                </div>
+            {% else %}
+                <div class="cta-buttons">
+                    <a href="{% url 'users:signup' %}" class="btn-primary">Sign Up</a>
+                    <a href="{% url 'users:login' %}" class="btn-secondary">Login</a>
+                </div>
+            {% endif %}
         </div>
     </div>
-
     
+    <div class="features-section">
+        <h2>Why ChatterChums?</h2>
+        
+        <div class="features-grid">
+            <div class="feature-card">
+                <h3>Join Communities</h3>
+                <p>Find forums about topics you're interested in and join the conversation.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Create Your Own Forums</h3>
+                <p>Start discussions about topics you're passionate about and build your community.</p>
+            </div>
+            
+            <div class="feature-card">
+                <h3>Connect with Others</h3>
+                <p>Meet people who share your interests and engage in meaningful conversations.</p>
+            </div>
+        </div>
+    </div>
+    
+    {% if forums %}
+    <div class="popular-forums-section">
+        <h2>Popular Forums</h2>
+        
+        <div class="forums-list">
+            {% for forum in forums %}
+            <div class="forum-card">
+                <h3><a href="{% url 'forums:forum' forum.title %}">{{ forum.title }}</a></h3>
+                <p class="description">{{ forum.description }}</p>
+                <div class="forum-meta">
+                    <span class="members">{{ forum.member.count }} members</span>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+    {% endif %}
+</div>
+
+<style>
+    .home-container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 20px;
+    }
+    
+    .hero-section {
+        background-color: #f5f8ff;
+        border-radius: 12px;
+        padding: 60px 40px;
+        margin-bottom: 50px;
+        text-align: center;
+    }
+    
+    .hero-content h1 {
+        font-size: 2.5rem;
+        margin-bottom: 15px;
+        color: #333;
+    }
+    
+    .hero-subtitle {
+        font-size: 1.2rem;
+        color: #666;
+        margin-bottom: 30px;
+    }
+    
+    .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 20px;
+    }
+    
+    .features-section {
+        margin-bottom: 60px;
+        text-align: center;
+    }
+    
+    .features-section h2 {
+        margin-bottom: 30px;
+        font-size: 2rem;
+    }
+    
+    .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 30px;
+    }
+    
+    .feature-card {
+        background-color: #fff;
+        border-radius: 8px;
+        padding: 30px;
+        box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+    }
+    
+    .feature-card h3 {
+        margin-bottom: 15px;
+        color: #4a6fdc;
+    }
+    
+    .popular-forums-section h2 {
+        margin-bottom: 30px;
+        text-align: center;
+        font-size: 2rem;
+    }
+</style>
 {% endblock %}
