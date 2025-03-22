@@ -52,7 +52,7 @@
         <div class="forums-list">
             {% for forum in forums %}
             <div class="forum-card">
-                <h3><a href="{% url 'forums:forum' forum.title %}">{{ forum.title }}</a></h3>
+                <h3><a href="{% url 'forums:forum_detail' forum.id %}">{{ forum.title }}</a></h3>
                 <p class="description">{{ forum.description }}</p>
                 <div class="forum-meta">
                     <span class="members">{{ forum.member.count }} members</span>
