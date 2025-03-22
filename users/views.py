@@ -39,11 +39,16 @@ def signup_view(request):
             login(request, user)
             return redirect('users:profile')  # Redirect to profile after signup
         else:
-            print(form.errors)
-            # Debug output goes here
-            for field in form:
-                for error in field.errors:
-                    messages.error(request, f"{field.label}: {error}")
+            # Non-field errors first
+            if form.non_field_errors():
+                for error in form.non_field_errors():
+                    messages.error(request, error)
+
+            # Field-specific errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    field_name = form[field].label if field in form.fields else field
+                    messages.error(request, f"{error}")
     else:
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
@@ -57,11 +62,19 @@ def login_view(request):
             login(request, user)
             return redirect('users:profile')
         else:
-            print(form.errors)
-            # Debug output goes here
-            for field in form:
-                for error in field.errors:
-                    messages.error(request, f"{field.label}: {error}")
+            # Non-field errors first
+            if form.non_field_errors():
+                for error in form.non_field_errors():
+                    messages.error(request, error)
+
+            # Field-specific errors
+            for field, errors in form.errors.items():
+                for error in errors:
+                    field_name = form[field].label if field in form.fields else field
+                    messages.error(request, f"{error}")
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+
+

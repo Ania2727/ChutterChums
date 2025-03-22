@@ -5,9 +5,9 @@ body {
     padding: 0;
     background-color: #fafafa;
     text-align: center;
-    
+
     justify-content: center;
-    
+
 }
 
 a {
@@ -83,7 +83,6 @@ a {
 }
 
 
-
 /*home page body*/
 .hero-section {
     padding: 100px 20px;
@@ -140,7 +139,6 @@ a {
 }
 
 
-
 /* Profile Icon and Dropdown */
 .profile-dropdown {
     position: relative;
@@ -161,15 +159,13 @@ a {
     top: 50px;
     right: 0;
     background-color: #ffffff;
-    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     border-radius: 8px;
     overflow: hidden;
     z-index: 10;
 }
 
 /*login and sign up title */
-
-
 
 
 /* Logo styling */
@@ -227,13 +223,13 @@ a {
     color: #111;
 }
 
-.big-logo img{
+.big-logo img {
     width: 15%;
-    padding-left:40%;
+    padding-left: 40%;
     padding: 0px 20px;
 }
 
-.big-logo h1{
+.big-logo h1 {
     font-size: 48px;
     color: #000;
     margin-bottom: 10px;
@@ -291,8 +287,8 @@ a {
     width: 20%;
     font-size: 14px;
     font-weight: 500;
-    margin-left: 40%;
-   
+    margin: 0 auto;
+
 }
 
 .btn-secondary:hover {
@@ -300,8 +296,202 @@ a {
 }
 
 
+/* Message styling - for Login Errors */
+.messages {
+    width: 80%;
+    max-width: 500px;
+    margin: 10px auto;
+    padding: 0;
+    list-style-type: none;
+}
+
+.alert {
+    padding: 12px 16px;
+    margin-bottom: 12px;
+    border: 1px solid transparent;
+    border-radius: 6px;
+    font-size: 14px;
+    text-align: left;
+}
+
+.alert-error, .alert-danger {
+    color: #721c24;
+    background-color: #f8d7da;
+    border-color: #f5c6cb;
+}
+
+.alert-success {
+    color: #155724;
+    background-color: #d4edda;
+    border-color: #c3e6cb;
+}
+
+.alert-warning {
+    color: #856404;
+    background-color: #fff3cd;
+    border-color: #ffeeba;
+}
+
+.alert-info {
+    color: #0c5460;
+    background-color: #d1ecf1;
+    border-color: #bee5eb;
+}
+
+/* Form field errors */
+.errorlist {
+    color: #721c24;
+    text-align: left;
+    margin: 0 auto;
+    padding-left: 40%;
+    margin-bottom: 5px;
+    font-size: 13px;
+    list-style-type: none;
+}
 
 
+/* FORUM SECTION */
+/* Profile page styles */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.user-info {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.user-details {
+    margin-bottom: 20px;
+}
+
+.user-details p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.actions {
+    margin-top: 30px;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+.forum-section {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.forum-section h3 {
+    font-size: 18px;
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.forum-list {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+    gap: 15px;
+}
+
+.forum-item {
+    background-color: #f9f9f9;
+    padding: 15px;
+    border-radius: 6px;
+}
+
+.forum-item h4 {
+    margin-bottom: 8px;
+    font-size: 16px;
+}
+
+.forum-item p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.forum-link {
+    color: #4a6fdc;
+    text-decoration: none;
+    font-weight: 500;
+}
+
+.forum-link:hover {
+    text-decoration: underline;
+}
+
+.browse-forums {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.btn-primary {
+    background-color: #4a6fdc;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* Media queries for responsiveness */
+@media (max-width: 768px) {
+    .signup-form input[type="email"],
+    .signup-form input[type="text"],
+    .signup-form input[type="password"],
+    .login-form input[type="text"],
+    .login-form input[type="password"],
+    .submit,
+    .btn-secondary {
+        width: 80%;
+    }
+
+    .errorlist {
+        padding-left: 10%;
+    }
+
+    .messages {
+        width: 90%;
+    }
+
+    .big-logo img {
+        width: 30%;
+    }
+
+    .forum-list {
+        grid-template-columns: 1fr;
+    }
+
+    .btn-primary,
+    .btn-logout {
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+    }
+}
 
 
 
