@@ -31,7 +31,7 @@
             <a href="{% url 'users:login' %}" {% if 'login' in request.path %}class="active"{% endif %}>Login</a>
             <a href="{% url 'users:signup' %}" {% if 'signup' in request.path %}class="active"{% endif %}>Sign Up</a>
         {% endif %}
-        <a href="#">About</a>
+        <a href="{% url 'about' %}" {% if 'about' in request.path %}class="active"{% endif %}>About</a>
         <a href="#">Explore</a>
         <a href="#">Settings</a>
 

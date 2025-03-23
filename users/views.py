@@ -1,8 +1,10 @@
+import requests
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from .forms import CustomUserCreationForm
+from django.http import JsonResponse
 from django.contrib import messages
 from forums.models import Forum, Topic, Comment
 
@@ -38,7 +40,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('users:profile')  # Redirect to profile after signup
+            return redirect('users:quiz')  # Redirect to profile after signup
         else:
             # Non-field errors first
             if form.non_field_errors():
@@ -87,3 +89,13 @@ def login_view(request):
     else:
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
+
+def quiz_view(request):
+    return render(request, 'quiz.html')
+
+def get_forum_recommendations(request):
+    interests = request.GET.getlist("interests") 
+    
+    response = requests.post("http://localhost:5000/get-recommendations", json={"interests": interests})
+
+    return JsonResponse(response.json())
