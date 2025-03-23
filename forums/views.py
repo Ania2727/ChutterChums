@@ -29,6 +29,7 @@ def user_forums(request):
         'forums': other_forums
     })
 
+
 @login_required
 def add_forum(request):
     if request.method == 'POST':
@@ -57,6 +58,9 @@ def forum_detail(request, forum_id):
 
 def create_topic(request, forum_id):
     forum = get_object_or_404(Forum, id=forum_id)
+
+    if not forum.members.filter(id=request.user.id).exists():
+        return HttpResponseForbidden("You must be a member of this forum to create topics")
 
     if request.method == 'POST':
         form = TopicForm(request.POST, user=request.user, forum=forum)
@@ -158,6 +162,7 @@ def edit_comment(request, forum_id, topic_id, comment_id):
         'comment': comment
     })
 
+
 @login_required
 def join_forum(request, forum_id):
     forum_obj = get_object_or_404(Forum, id=forum_id)
@@ -177,11 +182,10 @@ def leave_forum(request, forum_id):
     forum_obj.members.remove(request.user)
     messages.info(request, f'You have left {forum_obj.title}')
 
-    return redirect('users:profile')
+    return redirect('forums:forum_list')
 
 
 def home(request):
     # Get 3 forums with the most members
     forums = Forum.objects.annotate(member_count=Count('members')).order_by('-member_count')[:3]
     return render(request, 'home.html', {'forums': forums})
-
