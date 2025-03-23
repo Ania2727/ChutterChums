@@ -7,33 +7,15 @@
 {% block content %}
 <div class="profile-container">
     <div class="user-info">
-        <h2 class="welcome-message">Welcome, {{ user.username }}!</h2>
-
-        <div class="user-details">
+    <div class="user-details">
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
         </div>
-
         <div class="actions">
             <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
         </div>
     </div>
-
-    {% if joined_forums %}
-        <div class="forum-section">
-            <h3>Forums You've Joined</h3>
-            <div class="forum-list">
-                {% for forum in joined_forums %}
-                    <div class="forum-item">
-                        <h4>{{ forum.title }}</h4>
-                        <p>{{ forum.description|truncatechars:75 }}</p>
-                        <a href="{% url 'forums:forum' forum.title %}" class="forum-link">View Forum</a>
-                    </div>
-                {% endfor %}
-            </div>
-        </div>
-    {% endif %}
 
     {% if created_forums %}
         <div class="forum-section">
@@ -43,7 +25,22 @@
                     <div class="forum-item">
                         <h4>{{ forum.title }}</h4>
                         <p>{{ forum.description|truncatechars:75 }}</p>
-                        <a href="{% url 'forums:forum' forum.title %}" class="forum-link">View Forum</a>
+                        <a href="{% url 'forums:forum_detail' forum.id %}" class="forum-link">View Forum</a>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    {% endif %}
+
+    {% if joined_forums %}
+        <div class="forum-section">
+            <h3>Forums You've Joined</h3>
+            <div class="forum-list">
+                {% for forum in joined_forums %}
+                    <div class="forum-item">
+                        <h4>{{ forum.title }}</h4>
+                        <p>{{ forum.description|truncatechars:75 }}</p>
+                        <a href="{% url 'forums:forum_detail' forum.id %}" class="forum-link">View Forum</a>
                     </div>
                 {% endfor %}
             </div>
@@ -51,7 +48,7 @@
     {% endif %}
 
     <div class="browse-forums">
-        <a href="{% url 'forums:user_forums' %}" class="btn-primary">Browse All Forums</a>
+        <a href="{% url 'forums:forum_list' %}" class="btn-primary">Browse All Forums</a>
     </div>
 </div>
 {% endblock %}

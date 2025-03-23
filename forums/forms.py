@@ -4,18 +4,22 @@ from django import forms
 
 
 class CreateInForum(ModelForm):
+    link = forms.URLField(required=False)
+
     class Meta:
         model = Forum
-        fields = ['title', 'description', 'link', 'name']
+        fields = ['title', 'description', 'link']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
         super(CreateInForum, self).__init__(*args, **kwargs)
+        self.fields['link'].required = False
 
     def save(self, commit=True):
         instance = super(CreateInForum, self).save(commit=False)
         if self.user:
             instance.creator = self.user
+            instance.name = self.user.username  # Username is display name.
         if commit:
             instance.save()
             # Add the creator as a member automatically
@@ -23,22 +27,50 @@ class CreateInForum(ModelForm):
         return instance
 
 
-class CreateInChat(ModelForm):
+class TopicForm(forms.ModelForm):
     class Meta:
-        model = Chat
-        fields = ['forum', 'discuss']
+        model = Topic
+        fields = ['title', 'content']
         widgets = {
-            'discuss': forms.Textarea(attrs={'rows': 4, 'placeholder': 'Start a conversation...'}),
+            'title': forms.TextInput(attrs={'placeholder': 'Topic title'}),
+            'content': forms.Textarea(attrs={'rows': 5, 'placeholder': 'Describe your topic here...'}),
         }
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
-        super(CreateInChat, self).__init__(*args, **kwargs)
+        self.forum = kwargs.pop('forum', None)
+        super(TopicForm, self).__init__(*args, **kwargs)
 
     def save(self, commit=True):
-        instance = super(CreateInChat, self).save(commit=False)
+        instance = super(TopicForm, self).save(commit=False)
         if self.user:
-            instance.user = self.user
+            instance.author = self.user
+        if self.forum:
+            instance.forum = self.forum
+        if commit:
+            instance.save()
+        return instance
+
+
+class CommentForm(forms.ModelForm):
+    class Meta:
+        model = Comment
+        fields = ['content']
+        widgets = {
+            'content': forms.Textarea(attrs={'rows': 3, 'placeholder': 'Add your comment...'}),
+        }
+
+    def __init__(self, *args, **kwargs):
+        self.user = kwargs.pop('user', None)
+        self.topic = kwargs.pop('topic', None)
+        super(CommentForm, self).__init__(*args, **kwargs)
+
+    def save(self, commit=True):
+        instance = super(CommentForm, self).save(commit=False)
+        if self.user:
+            instance.author = self.user
+        if self.topic:
+            instance.topic = self.topic
         if commit:
             instance.save()
         return instance
