@@ -128,12 +128,13 @@ a {
     display: flex;
     justify-content: center;
     gap: 30px;
+   
+    
 }
 
 .btn {
     padding: 12px 24px;
     border: none;
-    border-radius: 20px;
     cursor: pointer;
     font-size: 16px;
     display: flex;
@@ -141,11 +142,14 @@ a {
     gap: 8px;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    width: 100%;
 }
 
 .btn-signup {
     background-color: #ff914d;
-    color: #E4500E
+    color: #E4500E;
+    
+    
 }
 
 .btn-login {
@@ -405,6 +409,65 @@ a {
     background-color: #ddd;
 }
 
+
+/*User Quiz styles*/
+.container {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+.interests {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.interest-btn {
+    background-color: #ff914d;
+    color: #E4500E;
+    border: none;
+    padding: 20px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    width:20%;
+    height:20%;
+    margin: 15px;
+}
+
+.interest-btn.selected {
+    background-color: white;
+    color: #ff7f50;
+    border: 2px solid #ff7f50;
+}
+
+
+
+.interest-btn:hover {
+    background-color: #ff5733;
+}
+
+.continue-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: lightgray;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.continue-btn:hover {
+    background-color: gray;
+}
+
 /* Message styling - for Login Errors */
 .messages {
     width: 80%;
@@ -566,16 +629,29 @@ a {
     text-align: center;
 }
 
-.btn-primary {
-    background-color: #4a6fdc;
-    color: white;
-    padding: 10px 15px;
+.btn {
+    padding: 12px 24px;
     border: none;
-    border-radius: 4px;
+    border-radius: 20px;
     cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
+
+.btn-primary {
+    background-color: #ff914d;
+    color: #E4500E
+}
+
+.btn-secondary{
+    background-color: #d3d3d3;
+    color: #333;
+}
+
 
 /* NEW FORUM STRUCTURE STYLES */
 /* Forum container and structure styles */
@@ -1012,4 +1088,46 @@ a {
     .forums-list {
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     }
+}
+
+/*home features*/
+.hero-subtitle {
+    font-size: 1.2rem;
+    color: #666;
+    margin-bottom: 30px;
+}
+
+
+.features-section {
+    margin-bottom: 60px;
+    text-align: center;
+}
+
+.features-section h2 {
+    margin-bottom: 30px;
+    font-size: 2rem;
+}
+
+.features-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 30px;
+}
+
+.feature-card {
+    background-color: #fff;
+    border-radius: 8px;
+    padding: 30px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+
+.feature-card h3 {
+    margin-bottom: 15px;
+    color: #E4500E;
+}
+
+.popular-forums-section h2 {
+    margin-bottom: 30px;
+    text-align: center;
+    font-size: 2rem;
 }
