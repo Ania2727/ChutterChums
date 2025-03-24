@@ -1,21 +1,40 @@
 from django.shortcuts import render, redirect
 from django.http import Http404
 from forums.forms import *
+from django.http import HttpResponse
 
 # Create your views here.
 def home(request):
     forums=Forum.objects.all()
     count=forums.count()
+    username = request.session.get('username', 'Guest')
     discussions=[]
     for i in forums:
         discussions.append(i.chat_set.all())
 
+     # for cookies
+    language = 'en-gb'
+    if 'lang' in request.COOKIES:
+        language = request.COOKIES['lang']
+
     context={'forums':forums,
               'count':count,
-              'discussions':discussions
+              'discussions':discussions,
+              'username' : username ,
     }
+
     return render(request,'home.html', context)
 
+
+def language(request, language = 'en-gb'):
+    #to render action into browser window
+    response = HttpResponse(f"Setting language to {language}")
+    response.set_cookie('lang', language)
+    return response
+
+def login_user(request, username):
+    request.session['username'] = username
+    return HttpResponse(f"Logged in as {username}")
 
 def forum(request, forum_name):
     try:

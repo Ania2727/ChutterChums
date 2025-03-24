@@ -24,4 +24,6 @@ urlpatterns = [
     path('addForum/', add_forum, name='addForum'),
     path('addChat/', add_chat, name='addChat'),
     path('<str:forum_name>/', forum, name='forum'),
+    path('language/<str:language>/', language, name='language'),
+    path('login/<str:username>/', login_user, name='login_user')
 ]
