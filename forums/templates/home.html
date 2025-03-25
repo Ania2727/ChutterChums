@@ -10,13 +10,13 @@
 
                 {% if user.is_authenticated %}
                 <div class="buttons">
-                    <a href="{% url 'forums:forum_list' %}" ><button class="btn-primary">Browse Forums</button></a>
-                    </div><a href="{% url 'forums:add_forum' %}" ><button class="btn-secondary">Create Forum</button></a>
+                    <a href="{% url 'forums:forum_list' %}" ><button class="btn btn-primary">Browse Forums</button></a>
+                    <a href="{% url 'forums:add_forum' %}" ><button class="btn btn-secondary">Create Forum</button></a>
                 </div>
                 {% else %}
                 <div class="buttons">
-                    <a href="{% url 'users:signup' %}"> <button class="btn btn-signup">Sign Up</button></a>
-                    <a href="{% url 'users:login' %}"> <button class="btn btn-login">Login</button></a>
+                    <a href="{% url 'users:signup' %}"> <button class="btn btn-primary">Sign Up</button></a>
+                    <a href="{% url 'users:login' %}"> <button class="btn btn-secondary">Login</button></a>
                 </div>
                 {% endif %}
             

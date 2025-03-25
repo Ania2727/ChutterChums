@@ -1,11 +1,15 @@
+import json
 from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib import messages
 from django.http import HttpResponseForbidden
 from django.contrib.auth.decorators import login_required
+from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Max
 from forums.forms import *
 from forums.models import *
-
+from sklearn.feature_extraction.text import TfidfVectorizer
+import numpy as np
+from django.http import JsonResponse
 
 def forum_list(request):
     forums = Forum.objects.annotate(
@@ -189,3 +193,5 @@ def home(request):
     # Get 3 forums with the most members
     forums = Forum.objects.annotate(member_count=Count('members')).order_by('-member_count')[:3]
     return render(request, 'home.html', {'forums': forums})
+
+

@@ -1,4 +1,6 @@
 import requests
+import json
+import numpy as np
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login, authenticate
 from django.contrib.auth.forms import AuthenticationForm
@@ -7,7 +9,8 @@ from .forms import CustomUserCreationForm
 from django.http import JsonResponse
 from django.contrib import messages
 from forums.models import Forum, Topic, Comment
-
+from django.views.decorators.csrf import csrf_exempt
+from sklearn.feature_extraction.text import TfidfVectorizer
 
 @login_required
 def profile_view(request):
@@ -93,9 +96,42 @@ def login_view(request):
 def quiz_view(request):
     return render(request, 'quiz.html')
 
-def get_forum_recommendations(request):
-    interests = request.GET.getlist("interests") 
-    
-    response = requests.post("http://localhost:5000/get-recommendations", json={"interests": interests})
 
-    return JsonResponse(response.json())
+
+def explore_view(request):
+    # If there are recommended forums stored in session, retrieve them
+    recommended_forums = request.session.get('recommended_forums', [])
+    return render(request, 'explore.html', {'recommended_forums': recommended_forums})
+
+# Handle POST request for getting forum recommendations
+@csrf_exempt
+def forum_recommendations(request):
+    if request.method == "POST":
+        try:
+            data = json.loads(request.body)
+            selected_interests = " ".join(data.get("interests", []))
+
+            forums = Forum.objects.all()
+            forum_texts = [forum.description for forum in forums]
+            forum_titles = [forum.title for forum in forums]
+
+            if not forum_texts:
+                return JsonResponse({"recommendations": []})  # No forums available
+
+            # TF-IDF for similarity matching
+            vectorizer = TfidfVectorizer().fit_transform([selected_interests] + forum_texts)
+            cosine_similarities = (vectorizer * vectorizer.T).toarray()[0, 1:]
+
+            # Rank forums by similarity
+            ranked_indices = np.argsort(cosine_similarities)[::-1][:5]  # Top 5
+            recommended_forums = [{"id": forums[i].id, "title": forum_titles[i], "description": forum_texts[i]} for i in ranked_indices]
+
+            # Store recommendations in session
+            request.session['recommended_forums'] = recommended_forums
+
+            # Redirect to explore page after saving the session data
+            return redirect('users:explore')            
+        except Exception as e:
+            return JsonResponse({"error": str(e)}, status=500)
+    
+    return JsonResponse({"error": "Invalid request"}, status=400)
