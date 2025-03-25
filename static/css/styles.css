@@ -128,7 +128,8 @@ a {
     display: flex;
     justify-content: center;
     gap: 30px;
-   
+    flex-wrap: wrap; 
+    align-items: center;
     
 }
 
@@ -142,17 +143,18 @@ a {
     gap: 8px;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    border-radius: 40px;
+    max-width:200px;
 }
 
-.btn-signup {
+.btn-primary {
     background-color: #ff914d;
     color: #E4500E;
     
     
 }
 
-.btn-login {
+.btn-secondary {
     background-color: #d3d3d3;
     color: #333;
 }
@@ -388,7 +390,7 @@ a {
 }
 
 /*Login to existing account button */
-.btn-secondary {
+.btn-redirect {
     display: block;
     background-color: #eee;
     color: #111;
@@ -405,7 +407,7 @@ a {
     margin: 0 auto;
 }
 
-.btn-secondary:hover {
+.btn-redirect:hover {
     background-color: #ddd;
 }
 
@@ -629,28 +631,7 @@ h2 {
     text-align: center;
 }
 
-.btn {
-    padding: 12px 24px;
-    border: none;
-    border-radius: 20px;
-    cursor: pointer;
-    font-size: 16px;
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    transition: background-color 0.3s ease;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-}
 
-.btn-primary {
-    background-color: #ff914d;
-    color: #E4500E
-}
-
-.btn-secondary{
-    background-color: #d3d3d3;
-    color: #333;
-}
 
 
 /* NEW FORUM STRUCTURE STYLES */

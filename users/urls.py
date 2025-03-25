@@ -9,5 +9,6 @@ urlpatterns = [
     path('profile/', profile_view, name='profile'),
     path('logout/', logout_view, name='logout'),
     path('quiz/', quiz_view, name='quiz'),
-    path("recommendations/", get_forum_recommendations, name="forum-recommendations"),
+    path('explore/', explore_view, name='explore'),
+    path('forum-recommendations', forum_recommendations, name='forum-recommendations')
 ]
