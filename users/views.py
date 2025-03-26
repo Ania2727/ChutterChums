@@ -11,6 +11,7 @@ from django.contrib import messages
 from forums.models import Forum, Topic, Comment
 from django.views.decorators.csrf import csrf_exempt
 from sklearn.feature_extraction.text import TfidfVectorizer
+from django.http import JsonResponse, HttpResponseRedirect
 
 @login_required
 def profile_view(request):
@@ -103,39 +104,64 @@ def quiz_view(request):
 
 
 def explore_view(request):
-    # If there are recommended forums stored in session, retrieve them
+    # retrieves recommended forums stored in session
     recommended_forums = request.session.get('recommended_forums', [])
     return render(request, 'explore.html', {'recommended_forums': recommended_forums})
 
 # Handle POST request for getting forum recommendations
+import logging
+logger = logging.getLogger(__name__)
+
+
+
+# Set up logging
+logger = logging.getLogger(__name__)
+
 @csrf_exempt
 def forum_recommendations(request):
     if request.method == "POST":
         try:
+            logger.info("Request body: %s", request.body)
             data = json.loads(request.body)
-            selected_interests = " ".join(data.get("interests", []))
+            selected_interests = data.get("interests", [])
 
+            
             forums = Forum.objects.all()
-            forum_texts = [forum.description for forum in forums]
-            forum_titles = [forum.title for forum in forums]
+            logger.info("Forums retrieved: %s", forums)
 
-            if not forum_texts:
-                return JsonResponse({"recommendations": []})  # No forums available
+            
+            if not selected_interests:
+                return JsonResponse({"success": False, "error": "No interests selected"}, status=400)
 
-            # TF-IDF for similarity matching
-            vectorizer = TfidfVectorizer().fit_transform([selected_interests] + forum_texts)
-            cosine_similarities = (vectorizer * vectorizer.T).toarray()[0, 1:]
+            recommended_forums = []
+            selected_interests_cleaned = [interest.lower().strip() for interest in selected_interests]
+            
+            for forum in forums:
+                forum_keywords = set(forum.title.lower().split()) 
+                common_keywords = set(selected_interests_cleaned) & forum_keywords  
+                common_count = len(common_keywords)
 
-            # Rank forums by similarity
-            ranked_indices = np.argsort(cosine_similarities)[::-1][:5]  # Top 5
-            recommended_forums = [{"id": forums[i].id, "title": forum_titles[i], "description": forum_texts[i]} for i in ranked_indices]
+                if common_count > 0:  
+                    recommended_forums.append({
+                        "id": forum.id,
+                        "title": forum.title,
+                        "description": forum.description,
+                        "common_keywords": list(common_keywords),  # Store common keywords for reference
+                        "match_score": common_count  # Rank by the number of common keywords
+                    })
 
-            # Store recommendations in session
+            recommended_forums = sorted(recommended_forums, key=lambda x: x["match_score"], reverse=True)
+
+            recommended_forums = recommended_forums[:5]
+
             request.session['recommended_forums'] = recommended_forums
 
-            # Redirect to explore page after saving the session data
-            return redirect('users:explore')            
+            logger.info("Recommendations: %s", recommended_forums)  # Log the recommendations
+
+            return JsonResponse({"success": True, "recommendations": recommended_forums})
+
         except Exception as e:
-            return JsonResponse({"error": str(e)}, status=500)
-    
-    return JsonResponse({"error": "Invalid request"}, status=400)
+            logger.error("Error: %s", str(e))  # Log the error
+            return JsonResponse({"success": False, "error": str(e)}, status=500)
+
+    return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
