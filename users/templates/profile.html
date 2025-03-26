@@ -3,16 +3,34 @@
 
 {% block title %}ChatterChums - User Profile{% endblock %}
 
-
 {% block content %}
 <div class="profile-container">
     <div class="user-info">
-    <div class="user-details">
+        <div class="user-details">
             <p><strong>Username:</strong> {{ user.username }}</p>
             <p><strong>Email:</strong> {{ user.email }}</p>
             <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+            
+            {% if user.userprofile.bio %}
+                <p><strong>Bio:</strong> {{ user.userprofile.bio }}</p>
+            {% else %}
+                <p><strong>Bio:</strong> <em>No biography provided.</em></p>
+            {% endif %}
+
+            {% if user.userprofile.profile_pic %}
+                <p><strong>Profile Picture:</strong></p>
+                <img src="{{ user.userprofile.profile_pic.url }}" alt="Profile Picture" height="150">
+            {% endif %}
         </div>
+
         <div class="actions">
+            <a href="{% url 'users:edit_profile' %}" class="btn-edit">Edit Profile</a>
+            <form method="POST" action="{% url 'users:delete_profile' %}" style="display:inline;">
+                {% csrf_token %}
+                <button type="submit" class="btn-delete" onclick="return confirm('Are you sure you want to delete your profile? This action cannot be undone.')">
+                    Delete Profile
+                </button>
+            </form>
             <a href="{% url 'users:logout' %}" class="btn-logout">Logout</a>
         </div>
     </div>
