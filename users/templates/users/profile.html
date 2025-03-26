@@ -1,0 +1,50 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>{{ request.user.username }}'s Profile</h2>
+    {% if request.user.userprofile.profile_pic %}
+        <img src="{{ request.user.userprofile.profile_pic.url }}" alt="Profile Picture" height="150">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+    <p><strong>Email:</strong> {{ request.user.userprofile.email }}</p>
+    <p><strong>Bio:</strong> {{ request.user.userprofile.bio }}</p>
+
+    <h3>Created Forums</h3>
+    <ul>
+        {% for forum in created_forums %}
+            <li>{{ forum.name }}</li>
+        {% empty %}
+            <li>No forums created.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Joined Forums</h3>
+    <ul>
+        {% for forum in joined_forums %}
+            <li>{{ forum.name }}</li>
+        {% empty %}
+            <li>No forums joined.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Recent Topics</h3>
+    <ul>
+        {% for topic in recent_topics %}
+            <li>{{ topic.title }}</li>
+        {% empty %}
+            <li>No recent topics.</li>
+        {% endfor %}
+    </ul>
+
+    <h3>Recent Comments</h3>
+    <ul>
+        {% for comment in recent_comments %}
+            <li>{{ comment.content }}</li>
+        {% empty %}
+            <li>No recent comments.</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
