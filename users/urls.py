@@ -10,5 +10,6 @@ urlpatterns = [
     path('logout/', logout_view, name='logout'),
     path('quiz/', quiz_view, name='quiz'),
     path('explore/', explore_view, name='explore'),
-    path('forum-recommendations', forum_recommendations, name='forum-recommendations')
+    path('settings/', settings_view, name='settings'),
+    path('forum-recommendations/', forum_recommendations, name='forum-recommendations'),
 ]

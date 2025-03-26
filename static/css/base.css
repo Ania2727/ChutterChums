@@ -1,0 +1,401 @@
+/* Core styles and layout */
+body {
+    font-family: 'Poppins';
+    margin: 0;
+    padding: 0;
+    background-color: #fafafa;
+    text-align: center;
+    justify-content: center;
+}
+
+a {
+    text-decoration: none;
+}
+
+/* NAV & HEADER */
+/*navbar*/
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    background-color: #ffffff;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+.navbar .logo {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.navbar .logo img {
+    width: 40px;
+    height: 40px;
+    margin-right: 10px;
+    vertical-align: middle;
+}
+
+.navbar .logo span {
+    display: inline-block;
+    vertical-align: middle;
+    line-height: 1;
+}
+
+.nav-links {
+    display: flex;
+    gap: 15px;
+    align-items: center;
+}
+
+.nav-links a {
+    text-decoration: none;
+    color: #333;
+    padding: 8px 16px;
+    border-radius: 20px;
+    transition: background-color 0.3s ease;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+    line-height: normal;
+}
+
+.nav-links a:hover,
+.nav-links a.active {
+    background-color: #ff914d;
+    color: #af3600;
+}
+
+.nav-logo-link {
+    text-decoration: none;
+    color: inherit;
+    display: flex;
+    align-items: center;
+    height: 100%;
+}
+
+.nav-logo-link:hover {
+    opacity: 0.9;
+}
+
+/* Profile Icon and Dropdown */
+.profile-dropdown {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 100%;
+}
+
+.profile-icon {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    cursor: pointer;
+    object-fit: cover;
+    vertical-align: middle;
+}
+
+.dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 50px;
+    right: 0;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    overflow: hidden;
+    z-index: 10;
+}
+
+.profile-dropdown .dropdown-menu {
+    display: none;
+    position: absolute;
+    top: 100%;
+    right: 0;
+    background-color: white;
+    border: 1px solid #ddd;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
+    width: 150px;
+}
+
+.profile-dropdown .dropdown-menu.show {
+    display: block;
+}
+
+.profile-dropdown .dropdown-menu a {
+    display: block;
+    padding: 8px;
+    color: #333;
+    text-decoration: none;
+}
+
+.profile-dropdown .dropdown-menu a:hover {
+    background-color: #f0f0f0;
+}
+
+/* Toggle Switch */
+.toggle-switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+/* Hide default HTML checkbox */
+.toggle-switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+/* Toggle Switch - Slider */
+.toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .toggle-slider {
+    background-color: #ff914d;
+}
+
+input:focus + .toggle-slider {
+    box-shadow: 0 0 1px #ff914d;
+}
+
+input:checked + .toggle-slider:before {
+    transform: translateX(26px);
+}
+
+
+/* Logo styling */
+.logo img {
+    width: 60px;
+    margin-bottom: 12px;
+}
+
+.big-logo img {
+    width: 15%;
+    padding-left: 40%;
+    padding: 0px 20px;
+}
+
+.big-logo h1 {
+    font-size: 48px;
+    color: #000;
+    margin-bottom: 10px;
+    font-weight: normal;
+}
+
+/* Standard button styles */
+.btn {
+    padding: 12px 24px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+    border-radius: 40px;
+    max-width: 200px;
+}
+
+.btn-center {
+    margin: 0 auto;
+    display: flex;
+    justify-content: center;
+}
+
+.btn-primary {
+    background-color: #ff914d;
+    color: #af3600;
+    transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+    background-color: #ffaa70;
+    color: #af3600;
+}
+
+.btn-secondary {
+    background-color: #d3d3d3;
+    color: #333;
+}
+
+.btn-signup:hover {
+    background-color: #ff7b2c;
+}
+
+.btn-login:hover {
+    background-color: #c0c0c0;
+}
+
+/* Separator */
+.separator {
+    display: flex;
+    align-items: center;
+    margin: 16px 0;
+    color: #999;
+}
+
+.separator span {
+    font-size: 14px;
+}
+
+.separator::before,
+.separator::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background-color: #ddd;
+    margin: 0 10px;
+}
+
+/* Dark Mode Styles */
+.dark-mode {
+    background-color: #1a1a1a !important;
+    color: #f5f5f5 !important;
+}
+
+/* Base dark background */
+.dark-mode .navbar,
+.dark-mode .settings-container,
+.dark-mode .user-info,
+.dark-mode .explore-container .forum-card,
+.dark-mode .feature-card,
+.dark-mode .forum-section,
+.dark-mode .dropdown-menu,
+.dark-mode .forum-container,
+.dark-mode .form-container,
+.dark-mode .forums-container,
+.dark-mode .comments-section,
+.dark-mode .topic-content,
+.dark-mode .no-forums {
+    background-color: #2d2d2d !important;
+    color: #f5f5f5 !important;
+    border-color: #444 !important;
+}
+
+.dark-mode .forum-card {
+    background-color: #444 !important;
+    color: #f5f5f5 !important;
+    border-color: #555555 !important;
+}
+
+/* Lighter elements - level 1 */
+.dark-mode .forum-header,
+.dark-mode .topics-container,
+.dark-mode .section-title,
+.dark-mode .join-notice {
+    background-color: #383838 !important;
+    border-color: #af3600 !important;
+}
+
+/* Even lighter elements - level 2  */
+.dark-mode .forum-item {
+    background-color: #555555 !important;
+}
+
+.dark-mode .topics-header,
+.dark-mode .add-comment,
+.dark-mode .login-to-comment {
+    background-color: #444444 !important;
+    border-color: #555555 !important;
+}
+
+/* Topic items and comment items with medium shade */
+.dark-mode .topic-item,
+.dark-mode .comment-item {
+    background-color: #3a3a3a !important;
+    border-bottom-color: #4f4f4f !important;
+}
+
+/* Hover states - even brighter */
+.dark-mode .topic-item:hover {
+    background-color: #505050 !important;
+}
+
+.dark-mode .forum-card:hover {
+    background-color: #505050 !important;
+    transform: translateY(-3px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3) !important;
+}
+/* FORUM SECTION END */
+
+
+.dark-mode .navbar {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.dark-mode .settings-section {
+    border-bottom-color: #444;
+}
+
+.dark-mode .nav-links a,
+.dark-mode .setting-item span,
+.dark-mode h1,
+.dark-mode h2,
+.dark-mode h3,
+.dark-mode p,
+.dark-mode .profile-dropdown .dropdown-menu a,
+.dark-mode .forum-card h3 a,
+.dark-mode .forum-meta span,
+.dark-mode .features-section h2,
+.dark-mode .feature-card h3 {
+    color: #f5f5f5 !important;
+}
+
+.dark-mode .separator::before,
+.dark-mode .separator::after {
+    background-color: #444;
+}
+
+.dark-mode .separator span,
+.dark-mode .feature-card p{
+    color: #bbb !important;
+}
+
+.dark-mode .btn-secondary {
+    background-color: #444;
+    color: #f5f5f5;
+}
+
+.dark-mode .profile-dropdown .dropdown-menu a:hover {
+    background-color: #444;
+}
+
+/* General responsive styles */
+@media (max-width: 768px) {
+    .big-logo img {
+        width: 30%;
+    }
+    
+    .btn-primary,
+    .btn-logout {
+        width: 80%;
+        margin: 0 auto;
+        display: block;
+    }
+}

@@ -1,0 +1,98 @@
+/* Profile page styles */
+.profile-container {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+.user-info {
+    background-color: #f5f5f5;
+    border-radius: 8px;
+    padding: 20px;
+    margin-bottom: 20px;
+}
+
+.welcome-message {
+    font-size: 24px;
+    margin-bottom: 15px;
+}
+
+.user-details {
+    margin-bottom: 20px;
+}
+
+.user-details p {
+    margin: 8px 0;
+    font-size: 16px;
+}
+
+.actions {
+    margin-top: 30px;
+}
+
+.btn-logout {
+    background-color: #f44336;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-block;
+}
+
+/* User Quiz styles */
+.quiz-container {
+    text-align: center;
+}
+
+h2 {
+    margin-bottom: 5px;
+}
+
+.interests {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 10px;
+    margin-top: 15px;
+}
+
+.interest-btn {
+    background-color: #ff914d;
+    color: #af3600;
+    border: none;
+    padding: 20px 25px;
+    border-radius: 30px;
+    cursor: pointer;
+    font-size: 20px;
+    transition: all 0.3s ease;
+    width: 20%;
+    height: 20%;
+    margin: 15px;
+}
+
+.interest-btn.selected {
+    background-color: white;
+    color: #ff7f50;
+    border: 2px solid #ff7f50;
+}
+
+.interest-btn:hover {
+    background-color: #ff5733;
+}
+
+.continue-btn {
+    margin-top: 20px;
+    padding: 12px 25px;
+    background-color: lightgray;
+    color: black;
+    border: none;
+    border-radius: 20px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+.continue-btn:hover {
+    background-color: gray;
+}
