@@ -108,14 +108,7 @@ def explore_view(request):
     recommended_forums = request.session.get('recommended_forums', [])
     return render(request, 'explore.html', {'recommended_forums': recommended_forums})
 
-# Handle POST request for getting forum recommendations
-import logging
-logger = logging.getLogger(__name__)
 
-
-
-# Set up logging
-logger = logging.getLogger(__name__)
 
 @csrf_exempt
 def forum_recommendations(request):
@@ -156,12 +149,12 @@ def forum_recommendations(request):
 
             request.session['recommended_forums'] = recommended_forums
 
-            logger.info("Recommendations: %s", recommended_forums)  # Log the recommendations
+            logger.info("Recommendations: %s", recommended_forums)  
 
             return JsonResponse({"success": True, "recommendations": recommended_forums})
 
         except Exception as e:
-            logger.error("Error: %s", str(e))  # Log the error
+            logger.error("Error: %s", str(e))  
             return JsonResponse({"success": False, "error": str(e)}, status=500)
 
     return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
