@@ -6,6 +6,46 @@ from django.contrib.auth.decorators import login_required
 from django.views.decorators.csrf import csrf_exempt
 from django.db.models import Count, Max
 from forums.forms import *
+<<<<<<< HEAD
+from django.http import HttpResponse
+
+# Create your views here.
+def home(request):
+    forums=Forum.objects.all()
+    count=forums.count()
+    username = request.session.get('username', 'Guest')
+    discussions=[]
+    for i in forums:
+        discussions.append(i.chat_set.all())
+
+     # for cookies
+    language = 'en-gb'
+    if 'lang' in request.COOKIES:
+        language = request.COOKIES['lang']
+
+    context={'forums':forums,
+              'count':count,
+              'discussions':discussions,
+              'username' : username ,
+    }
+
+    return render(request,'home.html', context)
+
+
+def language(request, language = 'en-gb'):
+    #to render action into browser window
+    response = HttpResponse(f"Setting language to {language}")
+    response.set_cookie('lang', language)
+    return response
+
+def login_user(request, username):
+    request.session['username'] = username
+    return HttpResponse(f"Logged in as {username}")
+
+def forum(request, forum_name):
+    try:
+        # First try to determine if it already exists by title
+=======
 from forums.models import *
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
@@ -16,6 +56,7 @@ def forum_list(request):
         topic_count=Count('topics'),
         last_activity=Max('topics__created_at')
     ).order_by('-last_activity')
+>>>>>>> 1370a83c285b5998de00f28909f38cc5cd2fbffc
 
     return render(request, 'forum_list.html', {'forums': forums})
 

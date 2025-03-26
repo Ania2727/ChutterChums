@@ -26,5 +26,13 @@ urlpatterns = [
     path('users/', include('users.urls', namespace='users')),
     path('forums/', include('forums.urls', namespace='forums')),
     path('', home, name='home'),
+<<<<<<< HEAD
+    path('addForum/', add_forum, name='addForum'),
+    path('addChat/', add_chat, name='addChat'),
+    path('<str:forum_name>/', forum, name='forum'),
+    path('language/<str:language>/', language, name='language'),
+    path('login/<str:username>/', login_user, name='login_user')
+=======
     path('about/',about_view,  name ='about')
+>>>>>>> 1370a83c285b5998de00f28909f38cc5cd2fbffc
 ]
