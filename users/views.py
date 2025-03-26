@@ -9,8 +9,9 @@ from .forms import CustomUserCreationForm
 from django.http import JsonResponse
 from django.contrib import messages
 from forums.models import Forum, Topic, Comment
-from django.views.decorators.csrf import csrf_exempt
-from sklearn.feature_extraction.text import TfidfVectorizer
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.contrib.auth.models import User
+from .forms import UserProfileForm
 
 @login_required
 def profile_view(request):
@@ -25,8 +26,17 @@ def profile_view(request):
         'recent_topics': recent_topics,
         'recent_comments': recent_comments,
     }
-    return render(request, 'profile.html', context)
+    return render(request, 'users/profile.html', context)
 
+@csrf_protect
+@login_required
+def delete_profile(request):
+    if request.method == 'POST':
+        user = request.user
+        logout(request)
+        user.delete()
+        return redirect('home')  # Or redirect to a goodbye page
+    return redirect('users:profile')
 
 @login_required
 def settings_view(request):
@@ -35,7 +45,6 @@ def settings_view(request):
 def logout_view(request):
     logout(request)
     return redirect('home')  # Redirect to home page after logout
-
 
 def signup_view(request):
     # Redirect if already logged in
@@ -47,7 +56,7 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('users:quiz')  # Redirect to profile after signup
+            return redirect('users:quiz')  # Redirect to quiz after signup
         else:
             # Non-field errors first
             if form.non_field_errors():
@@ -63,7 +72,6 @@ def signup_view(request):
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
 
-
 def login_view(request):
     # Redirect if already logged in
     if request.user.is_authenticated:
@@ -73,8 +81,8 @@ def login_view(request):
     if request.method == 'GET':
         storage = messages.get_messages(request)
         for message in storage:
-            pass  # Iterating through all the messages marks them as read
-        storage.used = True  # Mark the storage as processed
+            pass
+        storage.used = True
 
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
@@ -120,22 +128,39 @@ def forum_recommendations(request):
             forum_titles = [forum.title for forum in forums]
 
             if not forum_texts:
-                return JsonResponse({"recommendations": []})  # No forums available
+                return JsonResponse({"recommendations": []})
 
             # TF-IDF for similarity matching
             vectorizer = TfidfVectorizer().fit_transform([selected_interests] + forum_texts)
             cosine_similarities = (vectorizer * vectorizer.T).toarray()[0, 1:]
 
-            # Rank forums by similarity
-            ranked_indices = np.argsort(cosine_similarities)[::-1][:5]  # Top 5
-            recommended_forums = [{"id": forums[i].id, "title": forum_titles[i], "description": forum_texts[i]} for i in ranked_indices]
+            ranked_indices = np.argsort(cosine_similarities)[::-1][:5]
+            recommended_forums = [
+                {
+                    "id": forums[i].id,
+                    "title": forum_titles[i],
+                    "description": forum_texts[i],
+                }
+                for i in ranked_indices
+            ]
 
             # Store recommendations in session
             request.session['recommended_forums'] = recommended_forums
-
-            # Redirect to explore page after saving the session data
-            return redirect('users:explore')            
+            return redirect('users:explore')
         except Exception as e:
             return JsonResponse({"error": str(e)}, status=500)
-    
+
     return JsonResponse({"error": "Invalid request"}, status=400)
+
+def edit_profile_view(request):
+    profile = request.user.userprofile
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('users:profile')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'users/edit_profile.html', {'form': form})

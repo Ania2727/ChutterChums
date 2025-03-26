@@ -16,15 +16,21 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path, include
-from .views import *
+from django.conf import settings
+from django.conf.urls.static import static
+from .views import about_view
 from forums.views import home
-
-
+from users.views import profile_view  # Import profile view
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('users/', include('users.urls', namespace='users')),
     path('forums/', include('forums.urls', namespace='forums')),
     path('', home, name='home'),
-    path('about/',about_view,  name ='about')
+    path('about/', about_view, name='about'),
+    path('profile/', profile_view, name='profile'),  # Profile page URL
 ]
+
+# Serve media files during development
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
