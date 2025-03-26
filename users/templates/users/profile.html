@@ -18,6 +18,13 @@
     <h3>Biography</h3>
     <p>{{ request.user.userprofile.bio|default:"No biography provided." }}</p>
 
+    <!-- Edit Profile Button -->
+    <p>
+        <a href="{% url 'users:edit_profile' %}">
+            <button>Edit Profile</button>
+        </a>
+    </p>
+
     <!-- Created Forums -->
     <h3>Created Forums</h3>
     <ul>
