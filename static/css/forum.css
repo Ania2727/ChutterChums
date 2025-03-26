@@ -65,7 +65,7 @@
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
-    border-left: 4px solid #4a6fdc;
+    border-left: 4px solid #f08205;
 }
 
 .forum-title {
@@ -149,7 +149,7 @@
 }
 
 .topic-title a:hover {
-    color: #4a6fdc;
+    color: #f08205;
 }
 
 .topic-preview {
@@ -363,7 +363,7 @@
 }
 
 .forum-card h3 a:hover {
-    color: #4a6fdc;
+    color: #f08205;
 }
 
 .forum-card .description {

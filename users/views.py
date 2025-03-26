@@ -28,6 +28,10 @@ def profile_view(request):
     return render(request, 'profile.html', context)
 
 
+@login_required
+def settings_view(request):
+    return render(request, 'settings.html')
+
 def logout_view(request):
     logout(request)
     return redirect('home')  # Redirect to home page after logout
