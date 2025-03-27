@@ -5,11 +5,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     buttons.forEach(button => {
         button.addEventListener("click", function () {
-            if (button.classList.contains("selected")) {
-                button.classList.remove("selected");
-            } else {
-                button.classList.add("selected");
-            }
+            button.classList.toggle("selected");
         });
     });
 
@@ -19,18 +15,36 @@ document.addEventListener("DOMContentLoaded", function () {
 
         console.log("Selected Interests:", selectedInterests);
 
-        fetch('/users/forum-recommendations', {
+        const csrfToken = document.getElementById("csrf_token").value;
+
+        fetch('/users/forum-recommendations/', {
             method: 'POST',
+            headers: { 
+                'Content-Type': 'application/json',
+                'X-CSRFToken': csrfToken 
+            },
+            credentials: 'include',  
             body: JSON.stringify({ interests: selectedInterests }),
-            headers: { 'Content-Type': 'application/json' }
         })
         .then(response => {
-            // Check if response status is OK
-            if (response.ok) {
-                // The server handles the redirection, so no need for JSON response
-                window.location.href = "/users/explore/";  // Redirect to explore page
-            } 
+            if (!response.ok) {
+                throw new Error(`HTTP error! Status: ${response.status}`);
+            }
+            return response.json();
         })
-        .catch(error => console.error("Error:", error));
+        .then(data => {
+            if (data.success) {
+                console.log("Forum Recommendations:", data.recommendations);
+
+                // Store recommendations in sessionStorage or render them on the page
+                sessionStorage.setItem("recommendedForums", JSON.stringify(data.recommendations));
+
+                // Optionally redirect to the page displaying recommendations
+                window.location.href = "/users/explore/";  // Or wherever you want to display the recommendations
+            } else {
+                console.error("Error in response:", data.error);
+            }
+        })
+        .catch(error => console.error("Fetch error:", error));
     });
 });

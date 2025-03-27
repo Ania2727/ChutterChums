@@ -134,6 +134,7 @@ LOGIN_URL = 'users:login'
 # Default redirect after login if 'next' parameter is not provided
 LOGIN_REDIRECT_URL = 'users:profile'
 
+
 # Message framework settings
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {

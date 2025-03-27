@@ -12,6 +12,9 @@
     <div id="recommendations"></div>
 </div>
 
+<input type="hidden" name="csrfmiddlewaretoken" value="{{ csrf_token }}">
+
+
 <script>
     document.addEventListener("DOMContentLoaded", function () {
         const recommendedForums = JSON.parse(sessionStorage.getItem("recommendedForums")) || [];
