@@ -1,0 +1,76 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="profile-container">
+    <h2>{{ request.user.username }}'s Profile</h2>
+
+    <!-- Profile Picture -->
+    {% if request.user.userprofile.profile_pic %}
+        <img src="{{ request.user.userprofile.profile_pic.url }}" alt="Profile Picture" height="150">
+    {% else %}
+        <p>No profile picture uploaded.</p>
+    {% endif %}
+
+    <!-- Email -->
+    <p><strong>Email:</strong> {{ request.user.userprofile.email }}</p>
+
+    <!-- Biography -->
+    <h3>Biography</h3>
+    <p>{{ request.user.userprofile.bio|default:"No biography provided." }}</p>
+
+    <!-- Edit Profile Button -->
+    <p>
+        <a href="{% url 'users:edit_profile' %}">
+            <button>Edit Profile</button>
+        </a>
+    </p>
+
+    <!-- Created Forums -->
+    <h3>Created Forums</h3>
+    <ul>
+        {% for forum in created_forums %}
+            <li>{{ forum.name }}</li>
+        {% empty %}
+            <li>No forums created.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Joined Forums -->
+    <h3>Joined Forums</h3>
+    <ul>
+        {% for forum in joined_forums %}
+            <li>{{ forum.name }}</li>
+        {% empty %}
+            <li>No forums joined.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Recent Topics -->
+    <h3>Recent Topics</h3>
+    <ul>
+        {% for topic in recent_topics %}
+            <li>{{ topic.title }}</li>
+        {% empty %}
+            <li>No recent topics.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Recent Comments -->
+    <h3>Recent Comments</h3>
+    <ul>
+        {% for comment in recent_comments %}
+            <li>{{ comment.content }}</li>
+        {% empty %}
+            <li>No recent comments.</li>
+        {% endfor %}
+    </ul>
+
+    <!-- Delete Profile Button -->
+    <form method="POST" action="{% url 'users:delete_profile' %}">
+        {% csrf_token %}
+        <button type="submit" onclick="return confirm('Are you sure you want to delete your profile? This cannot be undone.')">
+            Delete My Profile
+        </button>
+    </form>
+</div>
+{% endblock %}
