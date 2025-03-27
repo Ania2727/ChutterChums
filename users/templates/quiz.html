@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-{%load static%}
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
@@ -8,42 +8,43 @@
     <link rel="stylesheet" href="{% static 'css/main.css' %}">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap"
+          rel="stylesheet">
 </head>
 <body>
-    <input type="hidden" id="csrf_token" value="{{ csrf_token }}">
+<input type="hidden" id="csrf_token" value="{{ csrf_token }}">
 
-    <div class="logo">
-        <img src="{% static 'images/logo.png' %}" alt="Logo" />
-        <span>ChatterChums</span>
+<div class="logo">
+    <img src="{% static 'images/logo.png' %}" alt="Logo"/>
+    <span>ChatterChums</span>
+</div>
+<div class="quiz-container">
+    <h2>Select some interests:</h2>
+    <p>Find what you love</p>
+    <div class="interests">
+        <button class="interest-btn">Romcoms</button>
+        <button class="interest-btn ">Jazz</button>
+        <button class="interest-btn">Radiohead</button>
+        <button class="interest-btn">R&B</button>
+        <button class="interest-btn">Harry Potter</button>
+        <button class="interest-btn">Horror</button>
+        <button class="interest-btn">Literature</button>
+        <button class="interest-btn">Scorsese</button>
+        <button class="interest-btn">House</button>
+        <button class="interest-btn">Fantasy</button>
+        <button class="interest-btn">Breaking Bad</button>
+        <button class="interest-btn">LOTR</button>
+        <button class="interest-btn">Hip-Hop</button>
+        <button class="interest-btn">Studio Ghibli</button>
+        <button class="interest-btn">Taylor Swift</button>
+        <button class="interest-btn">Stephen King</button>
+        <button class="interest-btn ">DnB</button>
+        <button class="interest-btn">Disney</button>
+        <button class="interest-btn">Kpop</button>
+        <button class="interest-btn">The Smiths</button>
     </div>
-    <div class="quiz-container">
-        <h2>Select some interests:</h2>
-        <p>Find what you love</p>
-        <div class="interests">
-            <button class="interest-btn">Romcoms</button>
-            <button class="interest-btn ">Jazz</button>
-            <button class="interest-btn">Radiohead</button>
-            <button class="interest-btn">R&B</button>
-            <button class="interest-btn">Harry Potter</button>
-            <button class="interest-btn">Horror</button>
-            <button class="interest-btn">Literature</button>
-            <button class="interest-btn">Scorsese</button>
-            <button class="interest-btn">House</button>
-            <button class="interest-btn">Fantasy</button>
-            <button class="interest-btn">Breaking Bad</button>
-            <button class="interest-btn">LOTR</button>
-            <button class="interest-btn">Hip-Hop</button>
-            <button class="interest-btn">Studio Ghibli</button>
-            <button class="interest-btn">Taylor Swift</button>
-            <button class="interest-btn">Stephen King</button>
-            <button class="interest-btn ">DnB</button>
-            <button class="interest-btn">Disney</button>
-            <button class="interest-btn">Kpop</button>
-            <button class="interest-btn">The Smiths</button>
-        </div>
-        <button class="continue-btn">Continue</button>
-    </div>
-    <script src="{% static 'js/script.js' %}"></script>
+    <button class="btn btn-primary">Continue</button>
+</div>
+<script src="{% static 'js/script.js' %}"></script>
 </body>
 </html>

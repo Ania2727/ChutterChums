@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}ChatterChums - Edit Profile{% endblock %}
+
+{% block content %}
+    <div class="profile-container">
+        <div class="user-info">
+            <div class="section-header">
+                <h2>Edit Profile</h2>
+            </div>
+
+            <form method="POST" enctype="multipart/form-data" class="edit-profile-form">
+                {% csrf_token %}
+
+                <div class="form-fields">
+                    {{ form.as_p }}
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="btn btn-blue">Save Changes</button>
+                    <a href="{% url 'users:profile' %}" class="btn btn-light">Cancel</a>
+                </div>
+            </form>
+        </div>
+    </div>
+{% endblock %}

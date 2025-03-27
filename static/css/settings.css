@@ -1,15 +1,15 @@
 /* Settings Page Styles - Matching Profile Style */
 .settings-container {
-    max-width: 800px;
+    max-width: 1000px;
+    margin: 0 auto;
     padding: 20px;
-    background-color: transparent;
+    text-align: left;
 }
 
-.settings-section {
-    background-color: #f5f5f5;
+.settings-info {
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
+    padding: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
 .welcome-message {
@@ -17,19 +17,20 @@
     margin-bottom: 15px;
 }
 
-.settings-section h2 {
+
+h2.appearance-title {
     font-size: 18px;
     margin-bottom: 15px;
-    color: #666;
-    text-align: left;
+    color: #000000;
 }
 
 .setting-item {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 10px;
-    padding: 10px;
+    margin-bottom: 6px;
+    padding: 5px;
+    text-align: left;
 }
 
 .setting-item span {
@@ -92,7 +93,6 @@ input:focus + .toggle-slider {
 input:checked + .toggle-slider:before {
     transform: translateX(26px);
 }
-
 
 /* Responsive styles */
 @media (max-width: 768px) {

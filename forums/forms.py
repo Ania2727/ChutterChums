@@ -5,10 +5,16 @@ from django import forms
 
 class CreateInForum(ModelForm):
     link = forms.URLField(required=False)
+    tags = forms.ModelMultipleChoiceField(
+        queryset=Tag.objects.all(),
+        widget=forms.CheckboxSelectMultiple,
+        required=False,
+        help_text="Select relevant tags for your forum"
+    )
 
     class Meta:
         model = Forum
-        fields = ['title', 'description', 'link']
+        fields = ['title', 'description', 'link', 'tags']
 
     def __init__(self, *args, **kwargs):
         self.user = kwargs.pop('user', None)
@@ -24,6 +30,8 @@ class CreateInForum(ModelForm):
             instance.save()
             # Add the creator as a member automatically
             instance.members.add(self.user)
+            # Save the tags
+            self.save_m2m()
         return instance
 
 

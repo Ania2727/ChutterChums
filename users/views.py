@@ -5,9 +5,9 @@ from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from forums.models import Forum, Topic, Comment
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import JsonResponse
+from forums.models import Forum, Topic, Comment
 from .forms import CustomUserCreationForm, UserProfileForm
 
 logger = logging.getLogger(__name__)
@@ -25,7 +25,7 @@ def profile_view(request):
         'recent_topics': recent_topics,
         'recent_comments': recent_comments,
     }
-    return render(request, 'users/profile.html', context)
+    return render(request, 'profile.html', context)
 
 @csrf_protect
 @login_required
@@ -37,7 +37,6 @@ def delete_profile(request):
         return redirect('home')  # Or redirect to a goodbye page
     return redirect('users:profile')
 
-@login_required
 def settings_view(request):
     return render(request, 'settings.html')
 
@@ -108,7 +107,6 @@ def quiz_view(request):
     return render(request, 'quiz.html')
 
 
-
 def explore_view(request):
     # retrieves recommended forums stored in session
     recommended_forums = request.session.get('recommended_forums', [])
@@ -124,23 +122,23 @@ def forum_recommendations(request):
             data = json.loads(request.body)
             selected_interests = data.get("interests", [])
 
-            
+
             forums = Forum.objects.all()
             logger.info("Forums retrieved: %s", forums)
 
-            
+
             if not selected_interests:
                 return JsonResponse({"success": False, "error": "No interests selected"}, status=400)
 
             recommended_forums = []
             selected_interests_cleaned = [interest.lower().strip() for interest in selected_interests]
-            
+
             for forum in forums:
-                forum_keywords = set(forum.title.lower().split()) 
-                common_keywords = set(selected_interests_cleaned) & forum_keywords  
+                forum_keywords = set(forum.title.lower().split())
+                common_keywords = set(selected_interests_cleaned) & forum_keywords
                 common_count = len(common_keywords)
 
-                if common_count > 0:  
+                if common_count > 0:
                     recommended_forums.append({
                         "id": forum.id,
                         "title": forum.title,
@@ -155,19 +153,19 @@ def forum_recommendations(request):
 
             request.session['recommended_forums'] = recommended_forums
 
-            logger.info("Recommendations: %s", recommended_forums)  
+            logger.info("Recommendations: %s", recommended_forums)
 
             return JsonResponse({"success": True, "recommendations": recommended_forums})
 
         except Exception as e:
-            logger.error("Error: %s", str(e))  
+            logger.error("Error: %s", str(e))
             return JsonResponse({"success": False, "error": str(e)}, status=500)
 
     return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
 
 
 def edit_profile_view(request):
-    profile = request.user.userprofile
+    profile = request.user
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
@@ -177,4 +175,4 @@ def edit_profile_view(request):
     else:
         form = UserProfileForm(instance=profile)
 
-    return render(request, 'users/edit_profile.html', {'form': form})
+    return render(request, 'edit_profile.html', {'form': form})

@@ -42,12 +42,12 @@
         {% csrf_token %}
         {{ form.username }}
         {{ form.password }}
-        <button class="submit" type="submit">Login</button>
+        <button class="btn btn-primary" type="submit">Login</button>
     </form>
     <div class="separator">
         <span>or</span>
     </div>
-    <a href="{% url 'users:signup' %}" class="btn-redirect">Create a new account</a>
+    <a href="{% url 'users:signup' %}" class="btn btn-light">Create a new account</a>
 </div>
 </body>
 </html>

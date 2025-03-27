@@ -1,98 +1,206 @@
-/* Profile page styles */
+/* PROFILE PAGE STYLES */
 .profile-container {
-    max-width: 800px;
+    max-width: 1000px;
     margin: 0 auto;
     padding: 20px;
+    text-align: left;
 }
 
+/* Remove Style sheet Margins */
+h1, h2, h3, h4, h5, h6 {
+    margin: 0;
+    padding: 0;
+}
+
+/* User info section */
 .user-info {
-    background-color: #f5f5f5;
+    background-color: #fff;
     border-radius: 8px;
-    padding: 20px;
-    margin-bottom: 20px;
-}
-
-.welcome-message {
-    font-size: 24px;
-    margin-bottom: 15px;
+    padding: 25px;
+    margin-bottom: 30px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
 }
 
 .user-details {
-    margin-bottom: 20px;
+    flex: 1;
+    min-width: 300px;
 }
 
 .user-details p {
-    margin: 8px 0;
+    margin-bottom: 12px;
     font-size: 16px;
+    color: #333;
+}
+
+.user-details img {
+    border-radius: 8px;
+    margin-top: 10px;
+    max-width: 100%;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
 }
 
 .actions {
-    margin-top: 30px;
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+    min-width: 150px;
 }
 
-.btn-logout {
-    background-color: #f44336;
-    color: white;
-    padding: 10px 15px;
+/* Style for the delete form to align with edit button */
+.actions form {
+    display: block;
+    width: 100%;
+}
+
+.actions form button {
+    width: 100%;
+    box-sizing: border-box;
+    appearance: none;
     border: none;
-    border-radius: 4px;
+    display: block;
+    font-family: inherit;
+    font-size: inherit;
     cursor: pointer;
-    text-decoration: none;
-    display: inline-block;
 }
 
-/* User Quiz styles */
-.quiz-container {
+/* Forum item specific styles for profile page */
+.forum-list a.forum-item {
+    background-color: #eeeeee;
+    padding: 15px;
+    border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.forum-list a.forum-item:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    background-color: #fff !important;
+}
+
+.forum-list a.forum-item h4 {
+    color: #333;
+    margin-bottom: 8px;
+    font-size: 16px;
+    position: relative;
+    z-index: 2;
+}
+
+.forum-list a.forum-item p {
+    color: #666;
+    font-size: 14px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
+}
+
+/* Browse forums button */
+.browse-forums {
+    margin-top: 20px;
     text-align: center;
 }
 
-h2 {
+/* Empty state styling */
+.empty-state {
+    padding: 30px;
+    text-align: center;
+    color: #666;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+/* Edit Profile Styles */
+.section-header {
+    width: 100%;
+}
+
+.edit-profile-form {
+    width: 100%;
+}
+
+.form-fields {
+    margin-bottom: 20px;
+}
+
+.form-fields p {
+    margin-bottom: 15px;
+}
+
+.form-fields label {
+    display: block;
     margin-bottom: 5px;
+    font-weight: 500;
+    color: #444;
 }
 
-.interests {
+.form-fields input[type="text"],
+.form-fields input[type="email"],
+.form-fields textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.form-fields textarea {
+    min-height: 100px;
+    resize: vertical;
+}
+
+.form-actions {
     display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
     gap: 10px;
-    margin-top: 15px;
 }
 
-.interest-btn {
-    background-color: #ff914d;
-    color: #af3600;
-    border: none;
-    padding: 20px 25px;
-    border-radius: 30px;
-    cursor: pointer;
-    font-size: 20px;
-    transition: all 0.3s ease;
-    width: 20%;
-    height: 20%;
-    margin: 15px;
+.form-actions .btn {
+    padding: 10px 20px;
 }
 
-.interest-btn.selected {
-    background-color: white;
-    color: #ff7f50;
-    border: 2px solid #ff7f50;
+/* Responsive styles */
+@media (max-width: 768px) {
+    .user-info {
+        flex-direction: column;
+    }
+
+    .user-details {
+        min-width: 100%;
+    }
+
+    .actions {
+        min-width: 100%;
+    }
+
+    .forum-list {
+        grid-template-columns: 1fr;
+    }
+
+    .form-actions {
+        flex-direction: column;
+    }
+
+    .form-actions .btn {
+        width: 100%;
+        margin-bottom: 10px;
+    }
 }
 
-.interest-btn:hover {
-    background-color: #ff5733;
-}
+@media (max-width: 480px) {
+    .profile-container {
+        padding: 15px;
+    }
 
-.continue-btn {
-    margin-top: 20px;
-    padding: 12px 25px;
-    background-color: lightgray;
-    color: black;
-    border: none;
-    border-radius: 20px;
-    font-size: 16px;
-    cursor: pointer;
-}
-
-.continue-btn:hover {
-    background-color: gray;
+    .user-info, .forum-section {
+        padding: 15px;
+    }
 }

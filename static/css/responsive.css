@@ -6,9 +6,7 @@
     .signup-form input[type="password"],
     .login-form input[type="text"],
     .login-form input[type="password"],
-    .submit,
-    .btn-secondary,
-    .btn-redirect {
+    .btn {
         width: 80%;
     }
 
@@ -26,14 +24,6 @@
         width: 30%;
     }
 
-    /* Button sizing */
-    .btn-primary,
-    .btn-logout {
-        width: 80%;
-        margin: 0 auto;
-        display: block;
-    }
-
     /* Form fields */
     .form-field {
         width: 100%;
@@ -42,7 +32,7 @@
     .create-form .submit {
         width: 100%;
     }
-    
+
     /* Interest buttons */
     .interest-btn {
         width: 40%;
@@ -56,11 +46,10 @@
     .signup-form input[type="password"],
     .login-form input[type="text"],
     .login-form input[type="password"],
-    .submit,
-    .btn-redirect {
+    .btn {
         width: 40%;
     }
-    
+
     .big-logo img {
         width: 20%;
     }

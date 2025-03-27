@@ -1,9 +1,12 @@
 /* Main CSS file that imports all other CSS files */
 
-@import 'base.css';
 @import 'home.css';
 @import 'forms.css';
-@import 'forum.css';
-@import "explore.css";
+@import 'explore.css';
 @import 'profile.css';
+@import 'settings.css';
+@import 'buttons.css';
+@import 'forum.css';
 @import 'responsive.css';
+@import 'base.css';
+@import 'dark-mode.css';
