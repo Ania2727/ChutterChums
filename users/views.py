@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import JsonResponse
-from forums.models import Forum, Topic, Comment
+from forums.models import Forum, Topic, Comment, Tag
 from .forms import CustomUserCreationForm, UserProfileForm
 
 logger = logging.getLogger(__name__)
@@ -103,15 +103,71 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+# users/views.py
 def quiz_view(request):
-    return render(request, 'quiz.html')
+    tags = Tag.objects.all().order_by('name')
+    return render(request, 'quiz.html', {'tags': tags})
 
-
+# users/views.py
 def explore_view(request):
-    # retrieves recommended forums stored in session
-    recommended_forums = request.session.get('recommended_forums', [])
+    recommended_forums = []
+
+    if request.user.is_authenticated:
+        try:
+            # Access interests through the userprofile
+            user_interests = request.user.userprofile.interests.all()
+
+            if user_interests:
+                # Find forums with matching tags
+                forums = Forum.objects.filter(tags__in=user_interests).distinct()
+
+                # Convert to list of dictionaries for template
+                for forum in forums:
+                    common_tags = forum.tags.filter(id__in=user_interests.values_list('id', flat=True))
+                    recommended_forums.append({
+                        "id": forum.id,
+                        "title": forum.title,
+                        "description": forum.description,
+                        "common_tags": list(common_tags.values_list('name', flat=True)),
+                        "match_score": common_tags.count()
+                    })
+
+                # Sort by number of matching tags (match score)
+                recommended_forums = sorted(recommended_forums, key=lambda x: x["match_score"], reverse=True)
+                recommended_forums = recommended_forums[:5]
+        except AttributeError:
+            # Handle case where user doesn't have a profile or interests
+            pass
+
+    # If no recommendations or not logged in, use session-based recommendations
+    if not recommended_forums:
+        recommended_forums = request.session.get('recommended_forums', [])
+
     return render(request, 'explore.html', {'recommended_forums': recommended_forums})
 
+@login_required
+def save_interests(request):
+    if request.method == 'POST':
+        # Get the selected interest IDs from the form
+        interest_ids = request.POST.getlist('interests')
+
+        # Get the current user profile
+        user_profile = request.user.userprofile
+
+        # Save interests
+        user_profile.interests.clear()
+        for interest_id in interest_ids:
+            try:
+                tag = Tag.objects.get(id=interest_id)
+                user_profile.interests.add(tag)
+            except Tag.DoesNotExist:
+                pass  # Skip if tag doesn't exist
+
+        # Redirect to explore page
+        return redirect('users:explore')
+
+    # If not a POST request, redirect to the quiz
+    return redirect('users:quiz')
 
 
 @csrf_exempt
