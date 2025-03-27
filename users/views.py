@@ -165,3 +165,17 @@ def forum_recommendations(request):
             return JsonResponse({"success": False, "error": str(e)}, status=500)
 
     return JsonResponse({"success": False, "error": "Invalid request"}, status=400)
+
+
+def edit_profile_view(request):
+    profile = request.user.userprofile
+
+    if request.method == 'POST':
+        form = UserProfileForm(request.POST, request.FILES, instance=profile)
+        if form.is_valid():
+            form.save()
+            return redirect('users:profile')
+    else:
+        form = UserProfileForm(instance=profile)
+
+    return render(request, 'users/edit_profile.html', {'form': form})
