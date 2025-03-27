@@ -1,17 +1,16 @@
-import requests
 import json
-import numpy as np
+import logging
 from django.shortcuts import render, redirect
-from django.contrib.auth import logout, login, authenticate
+from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
 from django.contrib.auth.decorators import login_required
-from .forms import CustomUserCreationForm
-from django.http import JsonResponse
 from django.contrib import messages
 from forums.models import Forum, Topic, Comment
-from django.views.decorators.csrf import csrf_exempt
-from sklearn.feature_extraction.text import TfidfVectorizer
-from django.http import JsonResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_exempt, csrf_protect
+from django.http import JsonResponse
+from .forms import CustomUserCreationForm, UserProfileForm
+
+logger = logging.getLogger(__name__)
 
 @login_required
 def profile_view(request):
