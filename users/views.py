@@ -12,6 +12,8 @@ from forums.models import Forum, Topic, Comment
 from django.views.decorators.csrf import csrf_exempt
 from sklearn.feature_extraction.text import TfidfVectorizer
 from django.http import JsonResponse, HttpResponseRedirect
+from django.views.decorators.csrf import csrf_protect
+
 
 @login_required
 def profile_view(request):
