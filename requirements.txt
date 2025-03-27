@@ -12,3 +12,4 @@ sqlparse==0.5.3
 threadpoolctl==3.6.0
 tzdata==2025.1
 urllib3==2.3.0
+Pillow==11.1.0
