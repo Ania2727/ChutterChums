@@ -320,7 +320,7 @@
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
 }
 
-.dark-mode .forum-card:hover {
+.dark-mode .forum-card:hover{
     background-color: #383838;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4);
 }

@@ -17,46 +17,84 @@ h1, h2, h3, h4, h5, h6 {
     background-color: #fff;
     border-radius: 8px;
     padding: 25px;
-    margin-bottom: 30px;
+    margin-bottom: 20px;
     box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
     display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
+    flex-direction: column;
+}
+
+/* Profile content layout with profile picture on the left */
+.profile-content {
+    display: flex;
+    margin: 10px 0;
+    gap: 25px;
+    align-items: flex-start;
+}
+
+/* Profile picture container */
+.profile-picture-container {
+    flex-shrink: 0;
+    width: 150px;
+    height: 150px;
+}
+
+/* Profile picture styling */
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 12px;
+    border: 3px solid #ff7b2c;
+}
+
+.profile-picture-placeholder {
+    width: 150px;
+    height: 150px;
+    background-color: #e0e0e0;
+    border-radius: 12px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 3rem;
+    color: #666;
+    border: 3px solid #ff7b2c;
 }
 
 .user-details {
     flex: 1;
     min-width: 300px;
+    padding-top: 0;
+    margin-top: 0;
 }
 
 .user-details p {
+    margin-top: 0;
     margin-bottom: 12px;
     font-size: 16px;
     color: #333;
 }
 
-.user-details img {
-    border-radius: 8px;
-    margin-top: 10px;
-    max-width: 100%;
-    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+.user-details p:first-child {
+    margin-top: 0;
+}
+
+.user-details p:last-child {
+    margin-bottom: 0;
+}
+
+.section-header {
+    width: 100%;
+    margin-bottom: 10px;
 }
 
 .actions {
     display: flex;
-    flex-direction: column;
     gap: 10px;
     min-width: 150px;
-}
-
-/* Style for the delete form to align with edit button */
-.actions form {
-    display: block;
-    width: 100%;
+    margin-top: 15px;
 }
 
 .actions form button {
-    width: 100%;
     box-sizing: border-box;
     appearance: none;
     border: none;
@@ -64,42 +102,6 @@ h1, h2, h3, h4, h5, h6 {
     font-family: inherit;
     font-size: inherit;
     cursor: pointer;
-}
-
-/* Forum item specific styles for profile page */
-.forum-list a.forum-item {
-    background-color: #eeeeee;
-    padding: 15px;
-    border-radius: 6px;
-    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
-    position: relative;
-    cursor: pointer;
-    display: block;
-    text-decoration: none;
-    color: inherit;
-    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
-}
-
-.forum-list a.forum-item:hover {
-    transform: translateY(-3px) !important;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
-    background-color: #fff !important;
-}
-
-.forum-list a.forum-item h4 {
-    color: #333;
-    margin-bottom: 8px;
-    font-size: 16px;
-    position: relative;
-    z-index: 2;
-}
-
-.forum-list a.forum-item p {
-    color: #666;
-    font-size: 14px;
-    margin-bottom: 0;
-    position: relative;
-    z-index: 2;
 }
 
 /* Browse forums button */
@@ -119,10 +121,6 @@ h1, h2, h3, h4, h5, h6 {
 }
 
 /* Edit Profile Styles */
-.section-header {
-    width: 100%;
-}
-
 .edit-profile-form {
     width: 100%;
 }
@@ -169,8 +167,13 @@ h1, h2, h3, h4, h5, h6 {
 
 /* Responsive styles */
 @media (max-width: 768px) {
-    .user-info {
+    .profile-content {
         flex-direction: column;
+        align-items: center;
+    }
+
+    .profile-picture-container {
+        margin-bottom: 15px;
     }
 
     .user-details {
@@ -178,7 +181,12 @@ h1, h2, h3, h4, h5, h6 {
     }
 
     .actions {
+        flex-direction: column;
         min-width: 100%;
+    }
+
+    .actions a, .actions form, .actions button {
+        width: 100%;
     }
 
     .forum-list {

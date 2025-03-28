@@ -10,21 +10,28 @@
                 <h1>{{ user.username }}'s Profile</h1>
             </div>
 
-            <div class="user-details">
-                <p><strong>Username:</strong> {{ user.username }}</p>
-                <p><strong>Email:</strong> {{ user.email }}</p>
-                <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
+            <div class="profile-content">
+                <div class="profile-picture-container">
+                    {% if user.userprofile.profile_pic %}
+                        <img src="{{ user.userprofile.profile_pic.url }}" alt="Profile Picture" class="profile-picture">
+                    {% else %}
+                        <div class="profile-picture-placeholder">
+                            {{ user.username|first|upper }}
+                        </div>
+                    {% endif %}
+                </div>
 
-                {% if user.bio %}
-                    <p><strong>Bio:</strong> {{ user.bio }}</p>
-                {% else %}
-                    <p><strong>Bio:</strong> <em>No biography provided.</em></p>
-                {% endif %}
+                <div class="user-details">
+                    <p><strong>Username:</strong> {{ user.username }}</p>
+                    <p><strong>Email:</strong> {{ user.email }}</p>
+                    <p><strong>Date Joined:</strong> {{ user.date_joined|date:"F j, Y" }}</p>
 
-                {% if user.profile_pic %}
-                    <p><strong>Profile Picture:</strong></p>
-                    <img src="{{ user.profile_pic.url }}" alt="Profile Picture" height="150">
-                {% endif %}
+                    {% if user.userprofile.bio %}
+                        <p><strong>Bio:</strong> {{ user.userprofile.bio }}</p>
+                    {% else %}
+                        <p><strong>Bio:</strong> <em>No biography provided.</em></p>
+                    {% endif %}
+                </div>
             </div>
 
             <div class="actions">

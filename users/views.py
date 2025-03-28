@@ -250,7 +250,7 @@ def forum_recommendations(request):
 
 
 def edit_profile_view(request):
-    profile = request.user
+    profile = request.user.userprofile
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
