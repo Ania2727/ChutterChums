@@ -11,18 +11,22 @@
             <div class="setting-item">
                 <span>Dark Mode (Beta)</span>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="darkModeToggle" {% if request.theme == 'dark' %}checked{% endif %}>
+                    <input type="checkbox" id="darkModeToggle" {% if current_theme == 'dark' %}checked{% endif %}>
                     <span class="toggle-slider"></span>
                 </label>
             </div>
         </div>
     </div>
 
-    <!-- This is still REALLY buggy -->
     <script>
         document.addEventListener('DOMContentLoaded', function () {
             // Initialize dark mode toggle based on theme cookie
             const darkModeToggle = document.getElementById('darkModeToggle');
+
+            // Set initial state based on body class
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.checked = true;
+            }
 
             darkModeToggle.addEventListener('change', function () {
                 const theme = this.checked ? 'dark' : 'light';

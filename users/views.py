@@ -56,8 +56,10 @@ def delete_profile(request):
 
 
 def settings_view(request):
+    # Get the current theme from cookie or default to 'light'
+    current_theme = request.COOKIES.get('theme', 'light')
+
     # Added in some AJAX to try and get dark mode working properly
-    # Check if it's an AJAX request
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
     if 'theme' in request.GET:
@@ -68,11 +70,11 @@ def settings_view(request):
             response.set_cookie('theme', theme, httponly=True, secure=True, max_age=31536000)
             return response
 
-        response = render(request, 'settings.html')
+        response = render(request, 'settings.html', {'current_theme': theme})
         response.set_cookie('theme', theme, httponly=True, secure=True, max_age=31536000)
         return response
 
-    return render(request, 'settings.html')
+    return render(request, 'settings.html', {'current_theme': current_theme})
 
 
 def logout_view(request):
