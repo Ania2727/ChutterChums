@@ -9,7 +9,7 @@ from django.contrib import messages
 from django.views.decorators.csrf import csrf_exempt, csrf_protect
 from django.http import JsonResponse
 from forums.models import Forum, Topic, Comment, Tag
-from .forms import CustomUserCreationForm, UserProfileForm
+from .forms import CustomUserCreationForm, CustomAuthenticationForm, UserProfileForm
 
 logger = logging.getLogger(__name__)
 
@@ -126,7 +126,7 @@ def login_view(request):
         storage.used = True  # Mark the storage as processed
 
     if request.method == 'POST':
-        form = AuthenticationForm(request, data=request.POST)
+        form = CustomAuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
             login(request, user)  # Starts session for user
@@ -151,7 +151,7 @@ def login_view(request):
                     field_name = form[field].label if field in form.fields else field
                     messages.error(request, f"{error}")
     else:
-        form = AuthenticationForm()
+        form = CustomAuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
 

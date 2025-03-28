@@ -27,7 +27,7 @@ def populate_tags():
         'Lord of the Rings', 'Harry Potter', 'History', 'Philosophy', 'R&B',
         'Harry Potter', 'Breaking Bad', 'Martin Scorsese', 'House', 'Nintendo',
         'Horror', 'Disney', 'K-Pop', 'The Smiths', 'Fantasy', 'Stephen King',
-        'Taylor Swift'
+        'Taylor Swift', 'Weightlifting'
     ]
 
     created_count = 0
@@ -129,7 +129,7 @@ def create_forums(users, tags):
         {
             'title': 'One Stop Fitness',
             'description': 'Support and motivation for your fitness goals.',
-            'tag_names': ['Fitness', 'Health', 'Sports'],
+            'tag_names': ['Fitness', 'Health', 'Sports', 'Weightlifting'],
         },
         {
             'title': 'Cinema Forum',
