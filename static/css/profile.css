@@ -60,6 +60,57 @@ h1, h2, h3, h4, h5, h6 {
     border: 3px solid #ff7b2c;
 }
 
+/* Profile picture upload styling */
+.profile-picture-field {
+    margin-bottom: 20px;
+}
+
+.profile-picture-preview {
+    margin: 10px 0;
+    display: flex;
+    justify-content: center;
+}
+
+.current-profile-pic {
+    width: 120px;
+    height: 120px;
+    object-fit: cover;
+    border-radius: 8px;
+    border: 2px solid #ff7b2c;
+}
+
+.file-input-wrapper {
+    display: flex;
+    align-items: center;
+    margin-top: 10px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+/* Hide the default file input */
+.file-input-wrapper input[type="file"] {
+    position: absolute;
+    width: 0.1px;
+    height: 0.1px;
+    opacity: 0;
+    overflow: hidden;
+    z-index: -1;
+}
+
+/* Style the custom file input button */
+.file-input-label {
+    display: inline-block;
+    cursor: pointer;
+    font-weight: normal;
+    text-align: center;
+}
+
+.selected-file-name {
+    margin-left: 10px;
+    color: #666;
+    font-size: 14px;
+}
+
 .user-details {
     flex: 1;
     min-width: 300px;
@@ -92,6 +143,7 @@ h1, h2, h3, h4, h5, h6 {
     gap: 10px;
     min-width: 150px;
     margin-top: 15px;
+    justify-content: flex-end;
 }
 
 .actions form button {
@@ -156,6 +208,41 @@ h1, h2, h3, h4, h5, h6 {
     resize: vertical;
 }
 
+/* Fix for form fields styling */
+.form-field {
+    margin-bottom: 15px;
+}
+
+.form-field label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: 500;
+    color: #444;
+}
+
+.form-field input[type="text"],
+.form-field input[type="email"],
+.form-field textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    box-sizing: border-box;
+    font-family: 'Poppins', sans-serif;
+}
+
+.help-text {
+    font-size: 12px;
+    color: #777;
+    margin-top: 5px;
+}
+
+.field-error .error-message {
+    color: #dc3545;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
 .form-actions {
     display: flex;
     gap: 10px;
@@ -163,6 +250,19 @@ h1, h2, h3, h4, h5, h6 {
 
 .form-actions .btn {
     padding: 10px 20px;
+}
+
+/* Dark mode support */
+.dark-mode .selected-file-name {
+    color: #bbb;
+}
+
+.dark-mode .current-profile-pic {
+    border-color: #ff914d;
+}
+
+.dark-mode .help-text {
+    color: #aaa;
 }
 
 /* Responsive styles */
@@ -183,10 +283,11 @@ h1, h2, h3, h4, h5, h6 {
     .actions {
         flex-direction: column;
         min-width: 100%;
+        justify-content: flex-end;
     }
 
     .actions a, .actions form, .actions button {
-        width: 100%;
+        width: auto;
     }
 
     .forum-list {

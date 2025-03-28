@@ -90,6 +90,10 @@
     justify-content: center;
 }
 
+.btn-right {
+    justify-content: right;
+}
+
 /* Text Button (No Background) */
 .btn-text {
     background: none;

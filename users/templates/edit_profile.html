@@ -14,7 +14,47 @@
                 {% csrf_token %}
 
                 <div class="form-fields">
-                    {{ form.as_p }}
+                    <!-- Profile picture field with custom styling -->
+                    <div class="profile-picture-field">
+                        <label for="{{ form.profile_picture.id_for_label }}">Profile Picture</label>
+                        <div class="profile-picture-preview">
+                            {% if user.profile.profile_picture %}
+                                <img src="{{ user.profile.profile_picture.url }}" alt="Current profile picture" class="current-profile-pic">
+                            {% else %}
+                                <div class="profile-picture-placeholder">
+                                    <span>{{ user.username.0|upper }}</span>
+                                </div>
+                            {% endif %}
+                        </div>
+                        <div class="file-input-wrapper">
+                            {{ form.profile_picture }}
+                            <label for="{{ form.profile_picture.id_for_label }}" class="btn btn-light file-input-label">Choose New Picture</label>
+                            <span class="selected-file-name">No file selected</span>
+                        </div>
+                        {% if form.profile_picture.help_text %}
+                            <p class="help-text">{{ form.profile_picture.help_text }}</p>
+                        {% endif %}
+                    </div>
+
+                    <!-- Other form fields -->
+                    {% for field in form %}
+                        {% if field.name != 'profile_picture' %}
+                            <div class="form-field">
+                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
+                                {{ field }}
+                                {% if field.help_text %}
+                                    <p class="help-text">{{ field.help_text }}</p>
+                                {% endif %}
+                                {% if field.errors %}
+                                    <div class="field-error">
+                                        {% for error in field.errors %}
+                                            <p class="error-message">{{ error }}</p>
+                                        {% endfor %}
+                                    </div>
+                                {% endif %}
+                            </div>
+                        {% endif %}
+                    {% endfor %}
                 </div>
 
                 <div class="form-actions">
@@ -24,4 +64,24 @@
             </form>
         </div>
     </div>
+{% endblock %}
+
+{% block extra_js %}
+<script>
+    // Update file name display when a file is selected
+    document.addEventListener('DOMContentLoaded', function() {
+        const fileInput = document.getElementById('{{ form.profile_picture.id_for_label }}');
+        const fileNameDisplay = document.querySelector('.selected-file-name');
+
+        if (fileInput && fileNameDisplay) {
+            fileInput.addEventListener('change', function() {
+                if (this.files && this.files.length > 0) {
+                    fileNameDisplay.textContent = this.files[0].name;
+                } else {
+                    fileNameDisplay.textContent = 'No file selected';
+                }
+            });
+        }
+    });
+</script>
 {% endblock %}
