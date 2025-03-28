@@ -19,12 +19,15 @@ from forums.models import Tag, Forum, Topic, Comment
 
 def populate_tags():
     tags = [
-        'Technology', 'Gaming', 'Entertainment', 'Sports', 'Science',
-        'Art', 'Music', 'Movies', 'Books', 'Food', 'Travel', 'Fashion',
-        'Health', 'Fitness', 'Politics', 'Business', 'Finance', 'Education',
-        'TV Shows', 'Anime', 'Comics', 'Podcasts', 'Celebrities',
+        'Technology', 'Gaming', 'Rom-Coms', 'Sports', 'Science',
+        'Art', 'Music', 'Movies', 'Literature', 'Food', 'Travel', 'Fashion',
+        'Health', 'Fitness', 'Politics', 'Radiohead', 'Finance',
+        'TV Shows', 'Studio Ghibli', 'Comics', 'Podcasts', 'Celebrities',
         'Rock', 'Pop', 'Hip-Hop', 'Jazz', 'Classical', 'Electronic',
-        'Humor', 'News', 'History', 'Philosophy', 'Psychology'
+        'Lord of the Rings', 'Harry Potter', 'History', 'Philosophy', 'R&B',
+        'Harry Potter', 'Breaking Bad', 'Martin Scorsese', 'House', 'Nintendo',
+        'Horror', 'Disney', 'K-Pop', 'The Smiths', 'Fantasy', 'Stephen King',
+        'Taylor Swift'
     ]
 
     created_count = 0
@@ -48,14 +51,19 @@ def populate_tags():
 
 def create_users():
     users_data = [
-        {'username': 'john_doe', 'email': 'john@example.com', 'password': '!securepassword1'},
-        {'username': 'jane_smith', 'email': 'jane@example.com', 'password': '£securepassword2'},
-        {'username': 'alex_tech', 'email': 'alex@example.com', 'password': '$securepassword3'},
-        {'username': 'sam_gamer', 'email': 'sam@example.com', 'password': '!securepassword4'},
-        {'username': 'taylor_music', 'email': 'taylor@example.com', 'password': '£securepassword5'},
-        {'username': 'jordan_sports', 'email': 'jordan@example.com', 'password': '$securepassword6'},
-        {'username': 'robin_books', 'email': 'robin@example.com', 'password': '!securepassword7'},
-        {'username': 'casey_travel', 'email': 'casey@example.com', 'password': '$securepassword8'},
+        {'username': 'john', 'email': 'john@yahoo.com', 'password': '!apassword1'},
+        {'username': 'jane', 'email': 'jane@gmail.com', 'password': '£apassword2'},
+        {'username': 'alex', 'email': 'alex@hotmail.com', 'password': '$apassword3'},
+        {'username': 'sam', 'email': 'sam@design.com', 'password': '!apassword4'},
+        {'username': 'taylor', 'email': 'taylor@london.com', 'password': '£apassword5'},
+        {'username': 'jordan', 'email': 'jordan@glasgow.ac.uk', 'password': '$apassword6'},
+        {'username': 'robin', 'email': 'robin@edi.ac.uk', 'password': '!apassword7'},
+        {'username': 'casey', 'email': 'casey@ic.ac.uk', 'password': '$apassword8'},
+        {'username': 'morgan', 'email': 'morgan@swiftie.com', 'password': '!apassword9'},
+        {'username': 'riley', 'email': 'riley@horror.net', 'password': '£apassword10'},
+        {'username': 'jamie', 'email': 'jamie@ghibli.jp', 'password': '$apassword11'},
+        {'username': 'quinn', 'email': 'quinn@radiohead.fan', 'password': '!apassword12'},
+        {'username': 'parker', 'email': 'parker@smiths.uk', 'password': '£apassword13'},
     ]
 
     created_users = []
@@ -94,39 +102,59 @@ def create_users():
 def create_forums(users, tags):
     forums_data = [
         {
-            'title': 'Tech Enthusiasts',
-            'description': 'A place to discuss the latest technology trends and innovations.',
-            'tag_names': ['Technology', 'Science', 'Education'],
+            'title': 'Tech Space',
+            'description': 'For the latest technology trends and innovations.',
+            'tag_names': ['Technology', 'Science', 'Education', 'Electronic'],
         },
         {
-            'title': 'Gaming Hub',
-            'description': 'Share your gaming experiences, tips, and discover new games.',
-            'tag_names': ['Gaming', 'Entertainment', 'Technology'],
+            'title': 'Game Zone',
+            'description': 'Discuss, get tips, and find new games.',
+            'tag_names': ['Gaming', 'Entertainment', 'Technology', 'Nintendo', 'Fantasy'],
         },
         {
             'title': 'Music Lovers',
             'description': 'For those who appreciate all genres of music.',
-            'tag_names': ['Music', 'Rock', 'Pop', 'Jazz', 'Classical', 'Hip-Hop'],
+            'tag_names': ['Music', 'Rock', 'Pop', 'Jazz', 'Classical', 'Hip-Hop', 'R&B', 'Radiohead', 'K-Pop', 'The Smiths', 'Taylor Swift'],
         },
         {
             'title': 'Book Club',
             'description': 'Discuss your favorite books and discover new reads.',
-            'tag_names': ['Books', 'Education', 'Entertainment'],
+            'tag_names': ['Literature', 'Education', 'Entertainment', 'Harry Potter', 'Lord of the Rings', 'Fantasy', 'Stephen King'],
         },
         {
-            'title': 'Travel Adventures',
+            'title': 'Globetrotting',
             'description': 'Share your travel stories and get inspiration for your next trip.',
             'tag_names': ['Travel', 'Food', 'Photography'],
         },
         {
-            'title': 'Fitness Journey',
+            'title': 'One Stop Fitness',
             'description': 'Support and motivation for your fitness goals.',
             'tag_names': ['Fitness', 'Health', 'Sports'],
         },
         {
-            'title': 'Movie Buffs',
+            'title': 'Cinema Forum',
             'description': 'Discussions about movies, directors, and actors.',
-            'tag_names': ['Movies', 'Entertainment', 'Celebrities'],
+            'tag_names': ['Movies', 'Entertainment', 'Celebrities', 'Studio Ghibli', 'Horror', 'Disney', 'Martin Scorsese'],
+        },
+        {
+            'title': 'Swifties',
+            'description': 'Taylor Swift - music, concerts, theories, and eras.',
+            'tag_names': ['Taylor Swift', 'Music', 'Pop', 'Celebrities'],
+        },
+        {
+            'title': 'Horror Fanatics',
+            'description': 'For fans of horror movies, books, and all things spooky.',
+            'tag_names': ['Horror', 'Movies', 'Stephen King', 'Entertainment'],
+        },
+        {
+            'title': 'Studio Ghibli',
+            'description': 'Celebrating the magical world of Miyazaki and Studio Ghibli films.',
+            'tag_names': ['Studio Ghibli', 'Movies', 'Animation', 'Art'],
+        },
+        {
+            'title': 'TV Chat',
+            'description': 'Analysis and discussions of popular and classic television series.',
+            'tag_names': ['TV Shows', 'Entertainment', 'Breaking Bad', 'House'],
         },
     ]
 
@@ -156,9 +184,6 @@ def create_forums(users, tags):
             description=forum_data['description'],
             date_posted=timezone.now()
         )
-
-        # Save forum first before adding many-to-many relationships
-        new_forum.save()
 
         # Add tags
         for tag_name in forum_data['tag_names']:
