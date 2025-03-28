@@ -5,3 +5,4 @@ from forums.models import *
 admin.site.register(Forum)
 admin.site.register(Topic)
 admin.site.register(Comment)
+admin.site.register(Tag)

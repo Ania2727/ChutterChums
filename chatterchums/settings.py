@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'users.middleware.ThemeMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -134,6 +135,10 @@ LOGIN_URL = 'users:login'
 # Default redirect after login if 'next' parameter is not provided
 LOGIN_REDIRECT_URL = 'users:profile'
 
+# Cookies Settings
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # Message framework settings
 from django.contrib.messages import constants as messages
