@@ -87,8 +87,19 @@ h1, h2, h3, h4, h5, h6 {
     gap: 10px;
 }
 
+/* New centered file input wrapper */
+.file-input-wrapper-centered {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-top: 15px;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
 /* Hide the default file input */
-.file-input-wrapper input[type="file"] {
+.file-input-wrapper input[type="file"],
+.file-input-wrapper-centered input[type="file"] {
     position: absolute;
     width: 0.1px;
     height: 0.1px;

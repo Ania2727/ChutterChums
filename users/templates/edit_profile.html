@@ -14,47 +14,49 @@
                 {% csrf_token %}
 
                 <div class="form-fields">
-                    <!-- Profile picture field with custom styling -->
                     <div class="profile-picture-field">
-                        <label for="{{ form.profile_picture.id_for_label }}">Profile Picture</label>
-                        <div class="profile-picture-preview">
-                            {% if user.profile.profile_picture %}
-                                <img src="{{ user.profile.profile_picture.url }}" alt="Current profile picture" class="current-profile-pic">
+                        <label>Profile Picture</label>
+                        <div class="profile-picture-preview" id="preview-container">
+                            {% if user.userprofile.profile_pic %}
+                                <img src="{{ user.userprofile.profile_pic.url }}" alt="Current profile picture" class="current-profile-pic" id="profile-preview">
                             {% else %}
-                                <div class="profile-picture-placeholder">
+                                <div class="profile-picture-placeholder" id="placeholder-container">
                                     <span>{{ user.username.0|upper }}</span>
                                 </div>
                             {% endif %}
                         </div>
-                        <div class="file-input-wrapper">
-                            {{ form.profile_picture }}
-                            <label for="{{ form.profile_picture.id_for_label }}" class="btn btn-light file-input-label">Choose New Picture</label>
-                            <span class="selected-file-name">No file selected</span>
+                        <div class="file-input-wrapper" style="justify-content: center; margin-top: 15px;">
+                            <input type="file" name="profile_pic" id="id_profile_pic" class="hidden-file-input" accept="image/*">
+                            <label for="id_profile_pic" class="btn btn-light file-input-label">Choose New Picture</label>
+                            <span class="selected-file-name" id="file-name-display">No file selected</span>
                         </div>
-                        {% if form.profile_picture.help_text %}
-                            <p class="help-text">{{ form.profile_picture.help_text }}</p>
+                        {% if form.profile_pic.help_text %}
+                            <p class="help-text">{{ form.profile_pic.help_text }}</p>
+                        {% endif %}
+                        {% if form.profile_pic.errors %}
+                            <div class="field-error">
+                                {% for error in form.profile_pic.errors %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
+                            </div>
                         {% endif %}
                     </div>
 
-                    <!-- Other form fields -->
-                    {% for field in form %}
-                        {% if field.name != 'profile_picture' %}
-                            <div class="form-field">
-                                <label for="{{ field.id_for_label }}">{{ field.label }}</label>
-                                {{ field }}
-                                {% if field.help_text %}
-                                    <p class="help-text">{{ field.help_text }}</p>
-                                {% endif %}
-                                {% if field.errors %}
-                                    <div class="field-error">
-                                        {% for error in field.errors %}
-                                            <p class="error-message">{{ error }}</p>
-                                        {% endfor %}
-                                    </div>
-                                {% endif %}
+                    <!-- Bio field -->
+                    <div class="form-field">
+                        <label for="{{ form.bio.id_for_label }}">Bio</label>
+                        {{ form.bio }}
+                        {% if form.bio.help_text %}
+                            <p class="help-text">{{ form.bio.help_text }}</p>
+                        {% endif %}
+                        {% if form.bio.errors %}
+                            <div class="field-error">
+                                {% for error in form.bio.errors %}
+                                    <p class="error-message">{{ error }}</p>
+                                {% endfor %}
                             </div>
                         {% endif %}
-                    {% endfor %}
+                    </div>
                 </div>
 
                 <div class="form-actions">
@@ -68,20 +70,45 @@
 
 {% block extra_js %}
 <script>
-    // Update file name display when a file is selected
     document.addEventListener('DOMContentLoaded', function() {
-        const fileInput = document.getElementById('{{ form.profile_picture.id_for_label }}');
-        const fileNameDisplay = document.querySelector('.selected-file-name');
+    const fileInput = document.getElementById('id_profile_pic');
+    const fileNameDisplay = document.getElementById('file-name-display');
+    const previewContainer = document.getElementById('preview-container');
 
-        if (fileInput && fileNameDisplay) {
-            fileInput.addEventListener('change', function() {
-                if (this.files && this.files.length > 0) {
-                    fileNameDisplay.textContent = this.files[0].name;
-                } else {
-                    fileNameDisplay.textContent = 'No file selected';
+    if (fileInput && fileNameDisplay && previewContainer) {
+        fileInput.addEventListener('change', function() {
+            if (this.files && this.files.length > 0) {
+                // Update filename display
+                fileNameDisplay.textContent = this.files[0].name;
+
+                // Create image preview
+                const file = this.files[0];
+                if (file.type.match('image.*')) {
+                    const reader = new FileReader();
+
+                    reader.onload = function(e) {
+                        // Clear the preview container first
+                        previewContainer.innerHTML = '';
+
+                        // Create a new image element
+                        const img = document.createElement('img');
+                        img.src = e.target.result;
+                        img.alt = "Profile picture preview";
+                        img.className = "current-profile-pic";
+                        img.id = "profile-preview";
+
+                        // Add to the preview container
+                        previewContainer.appendChild(img);
+                    };
+
+                    // Start reading the file as a data URL
+                    reader.readAsDataURL(file);
                 }
-            });
-        }
-    });
+            } else {
+                fileNameDisplay.textContent = 'No file selected';
+            }
+        });
+    }
+});
 </script>
 {% endblock %}
