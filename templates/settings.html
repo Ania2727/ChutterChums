@@ -11,7 +11,7 @@
             <div class="setting-item">
                 <span>Dark Mode</span>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="darkModeToggle">
+                    <input type="checkbox" id="darkModeToggle" {% if request.theme == 'dark' %}checked{% endif %}>
                     <span class="toggle-slider"></span>
                 </label>
             </div>
@@ -20,23 +20,29 @@
 
     <script>
         document.addEventListener('DOMContentLoaded', function () {
-            // Initialize dark mode toggle based on past settings
+            // Initialize dark mode toggle based on theme cookie
             const darkModeToggle = document.getElementById('darkModeToggle');
-            const savedDarkMode = localStorage.getItem('darkMode');
-
-            if (savedDarkMode === 'enabled') {
-                document.body.classList.add('dark-mode');
-                darkModeToggle.checked = true;
-            }
 
             darkModeToggle.addEventListener('change', function () {
+                const theme = this.checked ? 'dark' : 'light';
+
+                // Apply the theme immediately to the UI
                 if (this.checked) {
                     document.body.classList.add('dark-mode');
-                    localStorage.setItem('darkMode', 'enabled');
                 } else {
                     document.body.classList.remove('dark-mode');
-                    localStorage.setItem('darkMode', 'disabled');
                 }
+
+                // Set the cookie via fetch API without page reload
+                fetch(`{% url 'users:settings' %}?theme=${theme}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                // Update localStorage for backward compatibility
+                localStorage.setItem('darkMode', this.checked ? 'enabled' : 'disabled');
             });
         });
     </script>

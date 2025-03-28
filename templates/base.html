@@ -15,7 +15,7 @@
     <script src="{% static 'js/dark-mode.js' %}"></script>
 </head>
 
-<body>
+<body class="{% if request.theme == 'dark' %}dark-mode{% endif %}">
 <!--navbar-->
 <div class="navbar">
     <a href="{% url 'home' %}" class="nav-logo-link">
@@ -38,8 +38,8 @@
         <div class="profile-dropdown">
             <img src="{% static 'images/blank-icon.jpeg' %}" alt="Profile" class="profile-icon">
             <div class="dropdown-menu">
+                <a href="{% url 'users:settings' %}">Settings</a>
                 {% if user.is_authenticated %}
-                    <a href="{% url 'users:settings' %}">Settings</a>
                     <a href="{% url 'users:logout' %}">Logout</a>
                 {% else %}
                     <a href="{% url 'users:login' %}">Login</a>

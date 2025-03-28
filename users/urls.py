@@ -15,5 +15,4 @@ urlpatterns = [
     path('save-interests/', save_interests, name='save_interests'),
     path('forum-recommendations/', forum_recommendations, name='forum-recommendations'),
     path('edit/', edit_profile_view, name='edit_profile'),
-
 ]

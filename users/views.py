@@ -37,7 +37,23 @@ def delete_profile(request):
         return redirect('home')  # Or redirect to a goodbye page
     return redirect('users:profile')
 
+
 def settings_view(request):
+    # Check if it's an AJAX request
+    is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
+
+    if 'theme' in request.GET:
+        theme = request.GET.get('theme', 'light')
+
+        if is_ajax:
+            response = JsonResponse({'success': True, 'theme': theme})
+            response.set_cookie('theme', theme, httponly=True, secure=True, max_age=31536000)
+            return response
+
+        response = render(request, 'settings.html')
+        response.set_cookie('theme', theme, httponly=True, secure=True, max_age=31536000)
+        return response
+
     return render(request, 'settings.html')
 
 def logout_view(request):
@@ -75,19 +91,27 @@ def login_view(request):
     if request.user.is_authenticated:
         return redirect('users:profile')
 
-    # This prevents error messages that are saved from showing.
+    # Clear saved error messages on GET
     if request.method == 'GET':
         storage = messages.get_messages(request)
         for message in storage:
-            pass
-        storage.used = True
+            pass  # Iterating through all the messages marks them as read
+        storage.used = True  # Mark the storage as processed
 
     if request.method == 'POST':
         form = AuthenticationForm(request, data=request.POST)
         if form.is_valid():
             user = form.get_user()
-            login(request, user)
-            return redirect('users:profile')
+            login(request, user)  # Starts session for user
+
+            # Check if 'remember_me' was checked in POST data
+            remember_me = request.POST.get('remember_me', False)
+            if remember_me:
+                request.session.set_expiry(1209600)  # Set session expiry to 2 weeks
+            else:
+                request.session.set_expiry(0)  # Session expires on browser close
+
+            return redirect('users:profile')  # Redirect after successful login
         else:
             # Non-field errors first
             if form.non_field_errors():
