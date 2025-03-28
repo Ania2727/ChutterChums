@@ -60,6 +60,7 @@ def logout_view(request):
     logout(request)
     return redirect('home')  # Redirect to home page after logout
 
+
 def signup_view(request):
     # Redirect if already logged in
     if request.user.is_authenticated:
@@ -70,7 +71,11 @@ def signup_view(request):
         if form.is_valid():
             user = form.save()
             login(request, user)
-            return redirect('users:quiz')  # Redirect to quiz after signup
+
+            # 2-Week Cookie
+            request.session.set_expiry(1209600)
+
+            return redirect('users:quiz')
         else:
             # Non-field errors first
             if form.non_field_errors():

@@ -195,7 +195,9 @@
 .dark-mode .create-form textarea,
 .dark-mode .signup-form input[type="email"],
 .dark-mode .signup-form input[type="text"],
-.dark-mode .signup-form input[type="password"] {
+.dark-mode .signup-form input[type="password"],
+.dark-mode .login-form input[type="text"],
+.dark-mode .login-form input[type="password"]{
     background-color: #333;
     border-color: #555;
     color: #e0e0e0;
