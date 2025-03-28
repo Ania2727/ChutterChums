@@ -36,6 +36,20 @@ def user_forums(request):
 
 @login_required
 def add_forum(request):
+    # Create tags if no tags exist
+    if Tag.objects.count() == 0:
+        tags = [
+            # General Categories
+            'Technology', 'Gaming', 'Entertainment', 'Sports', 'Science',
+            'Art', 'Music', 'Movies', 'Books', 'Food', 'Travel', 'Fashion',
+            'Health', 'Fitness', 'Politics', 'Business', 'Finance', 'Education',
+            'TV Shows', 'Anime', 'Comics', 'Podcasts', 'Celebrities',
+            'Rock', 'Pop', 'Hip-Hop', 'Jazz', 'Classical', 'Electronic',
+            'Humor', 'News', 'History', 'Philosophy', 'Psychology'
+        ]
+        for tag_name in tags:
+            Tag.objects.get_or_create(name=tag_name)
+
     if request.method == 'POST':
         form = CreateInForum(request.POST, user=request.user)
         if form.is_valid():
@@ -193,5 +207,3 @@ def home(request):
     # Get 3 forums with the most members
     forums = Forum.objects.annotate(member_count=Count('members')).order_by('-member_count')[:3]
     return render(request, 'home.html', {'forums': forums})
-
-

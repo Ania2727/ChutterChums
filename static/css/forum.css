@@ -1,4 +1,4 @@
-/* FORUM SECTION - ORIGINAL */
+/* FORUM SECTION */
 .forum-section {
     background-color: #fff;
     border-radius: 8px;
@@ -20,30 +20,43 @@
 }
 
 .forum-item {
-    background-color: #f9f9f9;
+    background-color: #eeeeee;
     padding: 15px;
     border-radius: 6px;
+    transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
+    position: relative;
+    cursor: pointer;
+    display: block;
+    text-decoration: none;
+    color: inherit;
+    box-shadow: 0 1px 2px rgba(0, 0, 0, 0.05);
+}
+
+.forum-item:hover {
+    transform: translateY(-3px) !important;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1) !important;
+    background-color: #fff !important;
 }
 
 .forum-item h4 {
+    color: #2d2d2d;
     margin-bottom: 8px;
     font-size: 16px;
+    position: relative;
+    z-index: 2;
 }
 
 .forum-item p {
-    color: #666;
+    color: #5c5c5c;
     font-size: 14px;
-    margin-bottom: 10px;
+    margin-bottom: 0;
+    position: relative;
+    z-index: 2;
 }
 
+/* Hide original links */
 .forum-link {
-    color: #4a6fdc;
-    text-decoration: none;
-    font-weight: 500;
-}
-
-.forum-link:hover {
-    text-decoration: underline;
+    display: none;
 }
 
 .browse-forums {
@@ -61,7 +74,7 @@
 }
 
 .forum-header {
-    background-color: #f8f9fa;
+    background-color: #ffffff;
     padding: 20px;
     border-radius: 8px;
     margin-bottom: 20px;
@@ -287,10 +300,52 @@
     border-top: 1px solid #dee2e6;
 }
 
+.add-comment .form-field {
+    width: 100%;
+    padding: 0;
+    margin-bottom: 15px;
+}
+
+.add-comment .form-field textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+    min-height: 100px;
+    resize: vertical;
+    font-family: 'Poppins', sans-serif;
+    font-size: 14px;
+    background-color: #f8f8f8;
+    color: #333;
+    box-sizing: border-box;
+}
+
+.add-comment .form-field textarea:focus {
+    border-color: #f08205;
+    outline: none;
+    box-shadow: 0 0 0 2px rgba(240, 130, 5, 0.2);
+}
+
 .add-comment h3 {
     font-size: 16px;
     margin-bottom: 15px;
     text-align: left;
+}
+
+/* Submit button styling */
+.add-comment .submit {
+    background-color: #ff914d;
+    color: #fff;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 25px;
+    font-size: 16px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.add-comment .submit:hover {
+    background-color: #f08205;
 }
 
 .login-to-comment {
@@ -412,32 +467,98 @@
     text-decoration: underline;
 }
 
+/* Tag styles for forum cards and details */
+.forum-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    margin: 8px 0;
+}
+
+.forum-tag {
+    display: inline-block;
+    padding: 4px 10px;
+    background-color: #f0f0f0;
+    color: #333;
+    border-radius: 20px;
+    font-size: 12px;
+    font-weight: 500;
+}
+
+/* Tag selection styles for the creation form */
+.tags-field .tag-options {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin: 10px 0;
+}
+
+.tags-field .tag-options ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.tags-field .tag-options li {
+    margin-bottom: 8px;
+}
+
+.tags-field .tag-options label {
+    display: flex;
+    align-items: center;
+    cursor: pointer;
+    padding: 5px 12px;
+    background-color: #f9f9f9;
+    border-radius: 20px;
+    transition: all 0.2s ease;
+    border: 1px solid #ddd;
+    margin: 0;
+    font-weight: normal;
+}
+
+.tags-field .tag-options input[type="checkbox"] {
+    margin-right: 6px;
+}
+
+.tags-field .tag-options label:hover {
+    background-color: #f0f0f0;
+}
+
+.tags-field .tag-options input[type="checkbox"]:checked + label {
+    background-color: #ff914d;
+    color: white;
+    border-color: #ff914d;
+}
+
 /* Responsive forum styles */
 @media (max-width: 768px) {
     .forum-list {
         grid-template-columns: 1fr;
     }
-    
+
     .topics-header, .topic-item {
         grid-template-columns: 2fr 1fr;
     }
-    
+
     .topics-header div:nth-child(3),
     .topics-header div:nth-child(4),
     .topic-item div:nth-child(3),
     .topic-item div:nth-child(4) {
         display: none;
     }
-    
+
     .forum-actions {
         flex-direction: column;
     }
-    
+
     .forum-meta {
         flex-direction: column;
         gap: 5px;
     }
-    
+
     .comment-meta {
         flex-direction: column;
         gap: 5px;
@@ -448,4 +569,26 @@
     .forums-list {
         grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
     }
+}
+
+/* Dark mode styles for tags */
+.dark-mode .forum-tag {
+    background-color: #555;
+    color: #f5f5f5;
+}
+
+.dark-mode .tags-field .tag-options label {
+    background-color: #333;
+    border-color: #555;
+    color: #e0e0e0;
+}
+
+.dark-mode .tags-field .tag-options label:hover {
+    background-color: #444;
+}
+
+.dark-mode .tags-field .tag-options input[type="checkbox"]:checked + label {
+    background-color: #ff914d;
+    color: white;
+    border-color: #ff7b2c;
 }

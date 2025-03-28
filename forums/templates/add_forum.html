@@ -48,6 +48,21 @@
                 {% endif %}
             </div>
 
+            <div class="form-field tags-field">
+                <label>Tags</label>
+                <div class="tag-options">
+                    {{ form.tags }}
+                </div>
+                <small class="help-text">{{ form.tags.help_text }}</small>
+                {% if form.tags.errors %}
+                    <div class="field-error">
+                        {% for error in form.tags.errors %}
+                            <p class="error-message">{{ error }}</p>
+                        {% endfor %}
+                    </div>
+                {% endif %}
+            </div>
+
             <div class="form-info">
                 <p>Forum will be created with your username ({{ user.username }}) as the display name.</p>
             </div>

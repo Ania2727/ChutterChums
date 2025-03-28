@@ -26,9 +26,9 @@ STATIC_DIR = os.path.join(BASE_DIR, 'static')
 SECRET_KEY = 'django-insecure-uje=wb95nvsmk)sbbvyft3988t$#bvt-baspgi%y-tbfmwwwly'
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['aniavk.pythonanywhere.com', 'localhost', '127.0.0.1']
 
 
 
@@ -51,6 +51,7 @@ MIDDLEWARE = [
     'django.middleware.common.CommonMiddleware',
     'django.middleware.csrf.CsrfViewMiddleware',
     'django.contrib.auth.middleware.AuthenticationMiddleware',
+    'users.middleware.ThemeMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
 ]
@@ -134,6 +135,10 @@ LOGIN_URL = 'users:login'
 # Default redirect after login if 'next' parameter is not provided
 LOGIN_REDIRECT_URL = 'users:profile'
 
+# Cookies Settings
+SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_HTTPONLY = True
+SESSION_EXPIRE_AT_BROWSER_CLOSE = False
 
 # Message framework settings
 from django.contrib.messages import constants as messages

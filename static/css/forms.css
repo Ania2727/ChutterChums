@@ -51,7 +51,7 @@
     margin: 15px auto;
     padding: 10px;
     background-color: #f8f9fa;
-    border-left: 3px solid #4a6fdc;
+    border-left: 3px solid #af3600;
     border-radius: 4px;
     text-align: left;
 }
@@ -62,7 +62,6 @@
     font-size: 14px;
 }
 
-/* Make form inputs consistent with login/signup forms */
 .create-form input[type="text"],
 .create-form input[type="url"],
 .create-form textarea {
@@ -110,51 +109,23 @@
     text-decoration: underline;
 }
 
-/* Submit Button */
-.create-form .submit {
-    background-color: #111;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
+/* Submit Button - use buttons.css styles instead */
+.create-form .btn {
     width: 80%;
     max-width: 500px;
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
     margin-top: 10px;
-}
-
-.create-form .submit:hover {
-    background-color: #333;
 }
 
 /* LOGIN & SIGNUP FORMS */
 /* Form input styling */
 .signup-form input[type="email"],
 .signup-form input[type="text"],
-.signup-form input[type="password"] {
-    display: block;
-    width: 20%;
-    padding: 12px;
-    margin: 0 auto 10px auto;
-    margin-bottom: 10px;
-    border: 1px solid #ddd;
-    border-radius: 6px;
-    box-sizing: border-box;
-    font-size: 14px;
-    background-color: #f8f8f8;
-    outline: none;
-    color: #111;
-}
-
+.signup-form input[type="password"],
 .login-form input[type="text"],
 .login-form input[type="password"] {
     display: block;
     width: 20%;
     padding: 12px;
-    margin-bottom: 10px;
     margin: 0 auto 10px auto;
     border: 1px solid #ddd;
     border-radius: 6px;
@@ -165,49 +136,13 @@
     color: #111;
 }
 
-/* Primary Button */
-.submit {
-    background-color: #111;
-    color: #fff;
-    border: none;
-    padding: 12px;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 20%;
-    font-size: 16px;
-    font-weight: 500;
-    transition: background-color 0.3s ease;
-}
-
-/*Login to existing account button */
-.btn-redirect {
-    display: block;
-    background-color: #eee;
-    color: #111;
-    padding: 12px;
-    border: none;
-    text-align: center;
-    text-decoration: none;
-    transition: background-color 0.3s ease;
-    border-radius: 6px;
-    cursor: pointer;
-    width: 20%;
-    font-size: 14px;
-    font-weight: 500;
-    margin: 0 auto;
-}
-
-.btn-redirect:hover {
-    background-color: #ddd;
-}
 
 /* Form field errors */
 .errorlist {
     color: #721c24;
     text-align: left;
-    margin: 0 auto;
     padding-left: 40%;
-    margin-bottom: 5px;
+    margin: 0 auto 5px;
     font-size: 13px;
     list-style-type: none;
 }

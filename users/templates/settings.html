@@ -4,43 +4,50 @@
 {% block title %}ChatterChums - Settings{% endblock %}
 
 {% block content %}
-<div class="profile-container">
-    <div class="user-info">
+    <div class="settings-container">
         <h1>Settings</h1>
-
-        <div class="settings-section">
+        <div class="settings-info">
             <h2>Appearance</h2>
             <div class="setting-item">
-                <span>Dark Mode</span>
+                <span>Dark Mode (Beta)</span>
                 <label class="toggle-switch">
-                    <input type="checkbox" id="darkModeToggle">
+                    <input type="checkbox" id="darkModeToggle" {% if current_theme == 'dark' %}checked{% endif %}>
                     <span class="toggle-slider"></span>
                 </label>
             </div>
         </div>
-
-
-        <div class="actions">
-            <button class="btn btn-primary" id="saveSettings">Save Settings</button>
-        </div>
     </div>
 
-</div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function () {
+            // Initialize dark mode toggle based on the theme cookie
+            const darkModeToggle = document.getElementById('darkModeToggle');
 
-<script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Initialize dark mode toggle based on past settings
-        const darkModeToggle = document.getElementById('darkModeToggle');
-        const savedDarkMode = localStorage.getItem('darkMode');
+            // Set initial state based on body class
+            if (document.body.classList.contains('dark-mode')) {
+                darkModeToggle.checked = true;
+            }
 
-        if (savedDarkMode === 'enabled') {
-            document.body.classList.add('dark-mode');
-            darkModeToggle.checked = true;
-        }
+            darkModeToggle.addEventListener('change', function () {
+                const theme = this.checked ? 'dark' : 'light';
 
-        document.getElementById('saveSettings').addEventListener('click', function() {
-            alert('Settings saved successfully!');
+                // Applies the theme to the UI
+                if (this.checked) {
+                    document.body.classList.add('dark-mode');
+                } else {
+                    document.body.classList.remove('dark-mode');
+                }
+
+                // Get cookie via fetch API, no reload
+                fetch(`{% url 'users:settings' %}?theme=${theme}`, {
+                    method: 'GET',
+                    headers: {
+                        'X-Requested-With': 'XMLHttpRequest'
+                    }
+                });
+
+                localStorage.setItem('darkMode', this.checked ? 'enabled' : 'disabled');
+            });
         });
-    });
-</script>
+    </script>
 {% endblock %}
