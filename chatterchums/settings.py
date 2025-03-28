@@ -136,9 +136,9 @@ LOGIN_URL = 'users:login'
 LOGIN_REDIRECT_URL = 'users:profile'
 
 # Cookies Settings
-SESSION_COOKIE_SECURE = False
+SESSION_COOKIE_SECURE = True
 SESSION_COOKIE_HTTPONLY = True
-SESSION_EXPIRE_AT_BROWSER_CLOSE = False
+SESSION_EXPIRE_AT_BROWSER_CLOSE = True
 
 # Message framework settings
 from django.contrib.messages import constants as messages
