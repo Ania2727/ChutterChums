@@ -1,5 +1,6 @@
 import json
 import logging
+import os
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout, login
 from django.contrib.auth.forms import AuthenticationForm
@@ -11,6 +12,7 @@ from forums.models import Forum, Topic, Comment, Tag
 from .forms import CustomUserCreationForm, UserProfileForm
 
 logger = logging.getLogger(__name__)
+
 
 @login_required
 def profile_view(request):
@@ -27,11 +29,26 @@ def profile_view(request):
     }
     return render(request, 'profile.html', context)
 
+
 @csrf_protect
 @login_required
 def delete_profile(request):
     if request.method == 'POST':
         user = request.user
+
+        # Delete profile picture if it exists
+        if hasattr(user, 'userprofile') and user.userprofile.profile_pic:
+            try:
+                # Get the file path
+                profile_pic_path = user.userprofile.profile_pic.path
+
+                # Delete the profile picture from storage
+                if os.path.isfile(profile_pic_path):
+                    os.remove(profile_pic_path)
+                    logger.info(f"Deleted profile picture for user {user.username}")
+            except Exception as e:
+                logger.error(f"Error deleting profile picture for user {user.username}: {str(e)}")
+
         logout(request)
         user.delete()
         return redirect('home')  # Or redirect to a goodbye page
@@ -39,6 +56,7 @@ def delete_profile(request):
 
 
 def settings_view(request):
+    # Added in some AJAX to try and get dark mode working properly
     # Check if it's an AJAX request
     is_ajax = request.headers.get('X-Requested-With') == 'XMLHttpRequest'
 
@@ -55,6 +73,7 @@ def settings_view(request):
         return response
 
     return render(request, 'settings.html')
+
 
 def logout_view(request):
     logout(request)
@@ -90,6 +109,7 @@ def signup_view(request):
     else:
         form = CustomUserCreationForm()
     return render(request, 'signup.html', {'form': form})
+
 
 def login_view(request):
     # Redirect if already logged in
@@ -132,10 +152,12 @@ def login_view(request):
         form = AuthenticationForm()
     return render(request, 'login.html', {'form': form})
 
+
 # users/views.py
 def quiz_view(request):
     tags = Tag.objects.all().order_by('name')
     return render(request, 'quiz.html', {'tags': tags})
+
 
 # users/views.py
 def explore_view(request):
@@ -174,6 +196,7 @@ def explore_view(request):
 
     return render(request, 'explore.html', {'recommended_forums': recommended_forums})
 
+
 @login_required
 def save_interests(request):
     if request.method == 'POST':
@@ -207,10 +230,8 @@ def forum_recommendations(request):
             data = json.loads(request.body)
             selected_interests = data.get("interests", [])
 
-
             forums = Forum.objects.all()
             logger.info("Forums retrieved: %s", forums)
-
 
             if not selected_interests:
                 return JsonResponse({"success": False, "error": "No interests selected"}, status=400)
@@ -254,6 +275,39 @@ def edit_profile_view(request):
 
     if request.method == 'POST':
         form = UserProfileForm(request.POST, request.FILES, instance=profile)
+
+        # Check if the user is removing their profile picture
+        if 'profile_pic-clear' in request.POST and request.POST['profile_pic-clear'] == 'on':
+            # Delete the old profile picture if it exists
+            if profile.profile_pic:
+                try:
+                    # Get the file path
+                    profile_pic_path = profile.profile_pic.path
+
+                    # Clear the field first (important to do this before deleting the file)
+                    profile.profile_pic = None
+                    profile.save()
+
+                    # Delete the file if it exists
+                    if os.path.isfile(profile_pic_path):
+                        os.remove(profile_pic_path)
+                        logger.info(f"Deleted profile picture for user {request.user.username}")
+                except Exception as e:
+                    logger.error(f"Error deleting profile picture for user {request.user.username}: {str(e)}")
+
+        # Check if user is replacing their profile picture
+        elif 'profile_pic' in request.FILES and profile.profile_pic:
+            try:
+                # Get the old file path
+                old_pic_path = profile.profile_pic.path
+
+                # Check if old file exists and delete it
+                if os.path.isfile(old_pic_path):
+                    os.remove(old_pic_path)
+                    logger.info(f"Deleted old profile picture for user {request.user.username}")
+            except Exception as e:
+                logger.error(f"Error deleting old profile picture for user {request.user.username}: {str(e)}")
+
         if form.is_valid():
             form.save()
             return redirect('users:profile')
