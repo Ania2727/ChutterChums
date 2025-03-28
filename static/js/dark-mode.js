@@ -1,4 +1,3 @@
-// This script initializes dark mode based on cookie or localStorage
 document.addEventListener('DOMContentLoaded', function() {
     // Check for dark mode cookie
     function getCookie(name) {

@@ -39,8 +39,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 // Store recommendations in sessionStorage or render them on the page
                 sessionStorage.setItem("recommendedForums", JSON.stringify(data.recommendations));
 
-                // Optionally redirect to the page displaying recommendations
-                window.location.href = "/users/explore/";  // Or wherever you want to display the recommendations
+                window.location.href = "/users/explore/";
             } else {
                 console.error("Error in response:", data.error);
             }

@@ -20,7 +20,7 @@
 }
 
 .forum-item {
-    background-color: #5c5c5c;
+    background-color: #eeeeee;
     padding: 15px;
     border-radius: 6px;
     transition: transform 0.3s ease, box-shadow 0.3s ease, background-color 0.3s ease;
@@ -39,7 +39,7 @@
 }
 
 .forum-item h4 {
-    color: #333;
+    color: #2d2d2d;
     margin-bottom: 8px;
     font-size: 16px;
     position: relative;
